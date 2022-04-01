@@ -1,4 +1,4 @@
-package controller;
+package SE2project.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
