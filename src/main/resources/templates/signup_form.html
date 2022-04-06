@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="ISO-8859-1">
     <title>Sign Up - CodeJava</title>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-4 col-form-label">Phonenumber(10 digit): </label>
+                <label class="col-4 col-form-label">Phone number(10 digit): </label>
                 <div class="col-8">
                     <input type="tel" th:field="*{phoneNumber}" class="form-control"
                            required minlength="2" maxlength="20" />
@@ -53,6 +53,13 @@
                     <input type="password" th:field="*{password}" class="form-control"
                            required minlength="6" maxlength="10"/>
                 </div>
+            </div>
+            <div class="col-8">
+<!--                <select>-->
+<!--                    <option th:each="role:${roles}" th/>-->
+<!--                </select>-->
+                Roles<br/>
+                <input type="text" th:field="*{roles}" th:text="1"/>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Sign Up</button>

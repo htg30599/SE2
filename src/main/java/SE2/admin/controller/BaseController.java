@@ -1,6 +1,8 @@
 package SE2.admin.controller;
 
+import SE2.admin.entity.Roles;
 import SE2.admin.entity.User;
+import SE2.admin.repository.RolesRepository;
 import SE2.admin.repository.UserRepository;
 import SE2.admin.service.CustomUserDetails;
 import SE2.admin.service.CustomerUserDetailsService;
@@ -11,12 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Controller
 
 public class BaseController {
     @Autowired
     private UserRepository repo;
+
+    @Autowired
+    private RolesRepository rolesRepository;
 
     @GetMapping("/Home")
     public String index() {
@@ -26,7 +33,9 @@ public class BaseController {
 
     @GetMapping("/register")
     public String showSignUpForm(Model model) {
+//        List<Roles> rolesList = rolesRepository.findAll();
         model.addAttribute("user", new User());
+//        model.addAttribute("roles",rolesList);
         return "signup_form";
     }
 
@@ -36,14 +45,14 @@ public class BaseController {
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         repo.save(user);
-        return "register_sucess";
+        return "register_success";
     }
 
-    @PostMapping("/login")
-    public String login(String userName, String password) {
+    @PostMapping("/login1")
+    public String login(String userName) {
         CustomerUserDetailsService service = new CustomerUserDetailsService();
-        CustomUserDetails userDetails = service.loadUserByUsername(userName);
-        if (repo.findByUserName(userName).getRoles().getId()==1)
+        service.loadUserByUsername(userName);
+        if (repo.findByEmail(userName).getRoles().getId()==1)
             return "AdminHomepage";
         return "UserHomepage";
     }
