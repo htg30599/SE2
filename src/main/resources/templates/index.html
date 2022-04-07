@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xml:lang="en">
 <!-- Basic -->
 
 <head>
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
+
 
 <!--    &lt;!&ndash;[if lt IE 9]>-->
 <!--      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
@@ -84,6 +85,7 @@
                     <div class="right-phone-box">
                         <p>Call US :- <a href="#"> +11 900 800 100</a></p>
                     </div>
+
                     <div class="our-link">
                         <ul>
                             <li><a href="#">My Account</a></li>
@@ -91,10 +93,11 @@
                             <li><a href="#">Contact Us</a></li>
                             <li><a th:href="@{/register}">Register</a></li>
                             <li><a th:href="@{/login}">Login</a></li>
-
+                            <li><a href="javascript: document.signup_form.submit()" role="menuitem"></a>
+                                <form name="signup_form" th:action="@{/logout}" method="post" >
+                                    <input type="submit" value="Sign Out"/>
+                                </form></li>
                         </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -36,4 +36,5 @@ public class BaseController {
         return "register_sucess";
     }
 
+
 }
