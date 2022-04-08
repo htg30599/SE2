@@ -1,4 +1,4 @@
-package SE2project.model;
+package SE2.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

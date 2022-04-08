@@ -1,12 +1,12 @@
-package SE2project.controller;
+package SE2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class BaseController {
+public class HomeController {
 
-    @RequestMapping("/")
+    @RequestMapping("/Home")
     public String index(){
         return index();
     }
