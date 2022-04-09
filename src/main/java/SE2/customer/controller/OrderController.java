@@ -1,13 +1,14 @@
-package controller;
+package SE2.customer.controller;
 
-import model.Order;
+import SE2.customer.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import repository.OrderRepository;
+import SE2.customer.repository.OrderRepository;
 
 import java.util.List;
 
@@ -57,7 +58,33 @@ public class OrderController {
         return "redirect:/";
     }
 
+    @RequestMapping("/search")
+    public String searchOrder(
+            Model model,
+            @RequestParam(value = "name") String name) {
+        List<Order> order = orderRepository.findByNameContaining(name);
+        model.addAttribute("order", order);
+        return "orderList";
+    }
 
+    @RequestMapping("sort/asc")
+    public String sortOrderAsc(Model model) {
+        List<Order> order =orderRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+        model.addAttribute("order", order);
+        return "productOrder";
+    }
+
+    @RequestMapping("sort/desc")
+    public String sortOrderDesc(Model model) {
+        List<Order> order =orderRepository.findAll(Sort.by(Sort.Direction.DESC,"name"));
+        model.addAttribute("order", order);
+        return "orderList";
+    }
 
 
 }
+
+
+
+
+
