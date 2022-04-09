@@ -1,4 +1,4 @@
-package SE2.model;
+package SE2.admin.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,14 +11,14 @@ public class Product {
     private Long id;
     @NotEmpty(message = "Product name cannot be empty!")
     private String name;
-    private String short_desc;
+    private String shortDesc;
     @NotEmpty(message = "Product image cannot be empty!")
     private String images;
     @NotEmpty(message = "Product price cannot be empty!")
     private int price;
-    private int promotion_id;
+    private int promotionId;
     @NotEmpty(message = "Product category cannot be empty!")
-    private int category_id;
+    private int categoryId;
     @NotEmpty(message = "Product manufacturer cannot be empty!")
     private String manufacturer;
     @NotEmpty(message = "Product quantity cannot be empty!")
@@ -29,7 +29,6 @@ public class Product {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
@@ -42,12 +41,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getShort_desc() {
-        return short_desc;
+    public String getShortDesc() {
+        return shortDesc;
     }
 
-    public void setShort_desc(String short_desc) {
-        this.short_desc = short_desc;
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
     }
 
     public String getImages() {
@@ -66,20 +65,20 @@ public class Product {
         this.price = price;
     }
 
-    public int getPromotion_id() {
-        return promotion_id;
+    public int getPromotionId() {
+        return promotionId;
     }
 
-    public void setPromotion_id(int promotion_id) {
-        this.promotion_id = promotion_id;
+    public void setPromotionId(int promotionId) {
+        this.promotionId = promotionId;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getManufacturer() {

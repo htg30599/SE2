@@ -1,13 +1,12 @@
-
-package SE2.controller;
+package SE2.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class BaseController {
+public class HomeController {
 
-    @RequestMapping("/home")
+    @RequestMapping("/admin")
     public String index(){
         return index();
     }

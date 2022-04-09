@@ -1,8 +1,9 @@
-package SE2.controller;
+package SE2.admin.controller;
 
-import SE2.repository.ProductRepository;
-import SE2.model.Product;
+import SE2.admin.repository.ProductRepository;
+import SE2.admin.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,11 +15,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/product")
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
 
-    @RequestMapping(value = "/product")
+    @RequestMapping(value = "/list")
     public String showProductList(Model model) {
         List<Product> productList = productRepository.findAll();
         model.addAttribute("products", productList);
@@ -54,6 +56,30 @@ public class ProductController {
         productRepository.save(product);
         return "redirect:/product/list";
     }
+
+    @RequestMapping("/search")
+    public String searchProduct(
+            Model model,
+            @RequestParam(value = "name") String name) {
+        List<Product> products = productRepository.findByNameContaining(name);
+        model.addAttribute("products", products);
+        return "productList";
+    }
+
+    @RequestMapping("sort/asc")
+    public String sortproduct(Model model) {
+        List<Product> products =productRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+        model.addAttribute("products", products);
+        return "productList";
+    }
+
+    @RequestMapping("sort/desc")
+    public String sortproductDesc(Model model) {
+        List<Product> products =productRepository.findAll(Sort.by(Sort.Direction.DESC,"name"));
+        model.addAttribute("products", products);
+        return "productList";
+    }
+    
 
 }
 
