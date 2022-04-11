@@ -1,5 +1,7 @@
 package SE2.admin.controller;
 
+import SE2.admin.model.Category;
+import SE2.admin.repository.CategoryRepository;
 import SE2.admin.repository.ProductRepository;
 import SE2.admin.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/admin/product")
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @RequestMapping(value = "/list")
     public String showProductList(Model model) {
@@ -29,8 +33,10 @@ public class ProductController {
 
     @RequestMapping(value = "/add")
     public String addProduct(Model model) {
+        List<Category> categories = categoryRepository.findAll();
         Product product = new Product();
         model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
         return "productAdd";
     }
 
@@ -42,7 +48,7 @@ public class ProductController {
         return "productUpdate";
     }
 
-    @RequestMapping(value = "save")
+    @RequestMapping(value = "/save")
     public String saveUpdate(
             @RequestParam(value = "id", required = false) Long id,
             @Valid Product product, BindingResult result) {
@@ -66,20 +72,19 @@ public class ProductController {
         return "productList";
     }
 
-    @RequestMapping("sort/asc")
-    public String sortproduct(Model model) {
+    @RequestMapping("/sort/asc")
+    public String sortProduct(Model model) {
         List<Product> products =productRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
         model.addAttribute("products", products);
         return "productList";
     }
 
-    @RequestMapping("sort/desc")
-    public String sortproductDesc(Model model) {
+    @RequestMapping("/sort/desc")
+    public String sortProductDesc(Model model) {
         List<Product> products =productRepository.findAll(Sort.by(Sort.Direction.DESC,"name"));
         model.addAttribute("products", products);
         return "productList";
     }
-    
 
 }
 

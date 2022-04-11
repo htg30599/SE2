@@ -2,6 +2,7 @@ package SE2.admin.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -17,12 +18,16 @@ public class Product {
     @NotEmpty(message = "Product price cannot be empty!")
     private int price;
     private int promotionId;
-    @NotEmpty(message = "Product category cannot be empty!")
-    private int categoryId;
+//    @NotEmpty(message = "Product category cannot be empty!")
+//    private int categoryId;
     @NotEmpty(message = "Product manufacturer cannot be empty!")
     private String manufacturer;
     @NotEmpty(message = "Product quantity cannot be empty!")
     private int quantity;
+
+    @ManyToMany
+    @JoinTable(name = "product_has_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
 
 
     public void setId(Long id) {
@@ -73,14 +78,6 @@ public class Product {
         this.promotionId = promotionId;
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getManufacturer() {
         return manufacturer;
     }
@@ -95,5 +92,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

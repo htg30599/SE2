@@ -84,7 +84,9 @@
             </td>
             <td th:text="${product.price}"/>
             <td th:text="${product.promotionId}"/>
-            <td th:text="${product.categoryId}"/>
+            <td th:each="cate:${product.categories}">
+                <p th:text="cate.name"/>
+            </td>
             <td th:text="${product.manufacturer}"/>
             <td th:text="${product.quantity}"/>
             <td>

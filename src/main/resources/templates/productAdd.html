@@ -41,7 +41,7 @@
 <div class="container col-md-5 mt-4">
     <div class="card">
         <div class="card-body">
-            <form th:action="'/product/save'" th:object="${product}" method="post">
+            <form th:action="'save'" th:object="${product}" method="post">
                 <h2 class="text-center text-primary">Add product</h2>
                 <fieldset class="form-group">
                     <label>Product name </label>
@@ -65,7 +65,10 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Category</label>
-                    <input class="form-control" type="text" th:field="*{categoryId}">
+                    <select class="form-select" th:field="*{categories}">
+                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
+                    </select>
+<!--                    <input class="form-control" type="text" th:field="*{categoryId}">-->
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Manufacturer</label>
