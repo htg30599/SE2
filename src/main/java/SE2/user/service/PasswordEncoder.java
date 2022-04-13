@@ -1,4 +1,4 @@
-package se2Project.service;
+package SE2.user.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

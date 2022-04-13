@@ -1,4 +1,4 @@
-package se2Project.entity;
+package SE2.user.model;
 
 import javax.persistence.*;
 

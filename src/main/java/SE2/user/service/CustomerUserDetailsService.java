@@ -1,11 +1,11 @@
-package se2Project.service;
+package SE2.user.service;
 
+import SE2.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import se2Project.entity.User;
-import se2Project.repository.UserRepository;
+import SE2.user.model.User;
 
 public class CustomerUserDetailsService implements UserDetailsService {
     @Autowired
@@ -16,7 +16,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
             if (user == null) {
                 throw new UsernameNotFoundException("User not found");
             }
-            return new CustomUserDetails(user);
+            return new CustomerUserDetails(user);
 
     }
 }

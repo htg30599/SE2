@@ -1,16 +1,16 @@
-package se2Project.service;
+package SE2.user.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import se2Project.entity.User;
+import SE2.user.model.User;
 
 import java.util.Collection;
 
-public class CustomUserDetails implements UserDetails {
+public class CustomerUserDetails implements UserDetails {
 
-    private User user;
+    private final User user;
 
-    public CustomUserDetails(User user) {
+    public CustomerUserDetails(User user) {
         this.user = user;
     }
 

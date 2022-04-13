@@ -92,8 +92,10 @@
                         <li><a href="#">My Account</a></li>
                         <li><a href="#">Our location</a></li>
                         <li><a href="#">Contact Us</a></li>
-                        <li><a th:href="@{/register}">Register</a></li>
-                        <li><a th:href="@{/login}">Login</a></li>
+                        <li><a href="javascript: document.signup_form.submit()" role="menuitem"></a>
+                            <form name="signup_form" th:action="@{/logout}" method="post" >
+                                <input type="submit" value="Sign Out"/>
+                            </form></li>
                     </ul>
                 </div>
             </div>
@@ -642,6 +644,6 @@
         <script src="js/form-validator.min.js"></script>
         <script src="js/contact-form-script.js"></script>
         <script src="js/custom.js"></script>
- </body>
+</body>
 
 </html>

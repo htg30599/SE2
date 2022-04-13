@@ -1,4 +1,4 @@
-package se2Project.service;
+package SE2.user.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +47,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").authenticated()
+                .antMatchers("/homepage").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .usernameParameter("email")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/homepage")
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
