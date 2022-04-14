@@ -1,7 +1,6 @@
 package SE2.admin.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Product {
@@ -9,30 +8,23 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String name;
     private String shortDesc;
-
     private String images;
-
     private int price;
     private int promotionId;
-
     private String manufacturer;
-
     private int quantity;
 
-    @ManyToMany
-    @JoinTable(name = "product_has_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToOne
+    private Category category;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -91,11 +83,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

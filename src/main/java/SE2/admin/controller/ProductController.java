@@ -40,6 +40,7 @@ public class ProductController {
     public String addCategory(@ModelAttribute Category category, Model model){
         model.addAttribute("category", new Category());
 //        CategoryService.saveCategory(category);
+        System.out.println(category);
         return "categoryAdd";
     }
 
