@@ -41,18 +41,13 @@
 <div class="container col-md-5 mt-4">
     <div class="card">
         <div class="card-body">
-            <form th:action="'save'" th:object="${category}" method="post">
                 <h2 class="text-center text-primary">Add category</h2>
-
+            <form method="post" th:object="${category}">
                 <fieldset class="form-group">
-                    <label>Category</label>
-                    <select class="form-select" th:field="*{categories}">
-                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
-                    </select>
-                    <!--                    <input class="form-control" type="text" th:field="*{categoryId}">-->
+                     <input type="text" th:field="*{name}" class="form-control"  placeholder="add category"/>
                 </fieldset>
                 <div class="col text-center mt-3">
-                    <button type="submit" class="btn btn-success">ADD</button>
+                    <button type="submit" class="btn btn-info btn-block">submit</button>
                 </div>
             </form>
         </div>

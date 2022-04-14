@@ -4,7 +4,6 @@ import SE2.admin.model.Category;
 import SE2.admin.model.Product;
 import SE2.admin.repository.CategoryRepository;
 import SE2.admin.repository.ProductRepository;
-import SE2.admin.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +38,8 @@ public class ProductController {
 
     @RequestMapping(value = "/addCategory")
     public String addCategory(@ModelAttribute Category category, Model model){
-        CategoryService.saveCategory(category);
+        model.addAttribute("category", new Category());
+//        CategoryService.saveCategory(category);
         return "categoryAdd";
     }
 
