@@ -60,7 +60,7 @@ public class ProductController {
         }
         product.setId(id);
         productRepository.save(product);
-        return "redirect:/product/list";
+        return "redirect:/admin/product/list";
     }
 
     @RequestMapping("/search")

@@ -1,7 +1,6 @@
 package SE2.admin.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Category {
@@ -15,9 +14,6 @@ public class Category {
         this.id = id;
     }
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Product> products;
-
     public Long getId() {
         return id;
     }
@@ -28,13 +24,5 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
     }
 }

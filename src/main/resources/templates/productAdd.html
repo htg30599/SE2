@@ -65,10 +65,9 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Category</label>
-                    <select class="form-select" th:field="*{categories}">
+                    <select class="form-select" th:field="*{category}">
                         <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
                     </select>
-<!--                    <input class="form-control" type="text" th:field="*{categoryId}">-->
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Manufacturer</label>
