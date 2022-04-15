@@ -36,13 +36,14 @@
 <div class="container col-md-5 mt-4">
     <div class="card">
         <div class="card-body">
-                <h2 class="text-center text-primary">Add category</h2>
-            <form th:action="'/save'" th:object="${category}" method="post">
+            <form th:action="'/save'" th:object="${category}" >
+                <h2 class="text-center text-primary">UPDATE CATEGORY</h2>
                 <fieldset class="form-group">
                     <label>Category name </label>
                     <input class="form-control" type="text" th:field="*{name}">
                     <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
                 </fieldset>
+                <input type="hidden" th:field="*{id}">
                 <div class="col text-center mt-3">
                     <button type="submit" class="btn btn-success">ADD</button>
                 </div>

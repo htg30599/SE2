@@ -1,49 +1,54 @@
-package SE2.admin.controller;
-
-import SE2.admin.model.Category;
-import SE2.admin.model.Product;
-import SE2.admin.repository.CategoryRepository;
-import SE2.admin.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
-
-@Controller
-@RequestMapping(value = "/admin/product")
-public class ProductController {
-    @Autowired
-    ProductRepository productRepository;
-    @Autowired
-    CategoryRepository categoryRepository;
-
-    @RequestMapping(value = "/list")
-    public String showProductList(Model model) {
-        List<Product> productList = productRepository.findAll();
-        model.addAttribute("products", productList);
-        return "productList";
-    }
-
-    @RequestMapping(value = "/add")
-    public String addProduct(Model model) {
-        List<Category> categories = categoryRepository.findAll();
-        Product product = new Product();
-        model.addAttribute("product", product);
-        model.addAttribute("category", new Category());
-        return "productAdd";
-    }
-
-    @RequestMapping(value = "/addCategory")
-    public String addCategory(@ModelAttribute Category category, Model model){
-        model.addAttribute("category", new Category());
-//        CategoryService.saveCategory(category);
-        System.out.println(category);
-        return "categoryAdd";
-    }
-
+//package SE2.admin.controller;
+//
+//import SE2.admin.model.Category;
+//import SE2.admin.model.Product;
+//import SE2.admin.repository.CategoryRepository;
+//import SE2.admin.repository.ProductRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.domain.Sort;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.validation.BindingResult;
+//import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
+//
+//import javax.validation.Valid;
+//import java.util.List;
+//
+//@Controller
+//@RequestMapping(value = "/admin/product")
+//public class ProductController {
+//    @Autowired
+//    ProductRepository productRepository;
+//    @Autowired
+//    CategoryRepository categoryRepository;
+//
+//    @RequestMapping(value = "/list")
+//    public String showProductList(Model model) {
+//        List<Product> productList = productRepository.findAll();
+//        model.addAttribute("products", productList);
+//        return "productList";
+//    }
+//
+//    @RequestMapping(value = "/add")
+//    public String addProduct(Model model) {
+//        List<Category> categories = categoryRepository.findAll();
+//        Product product = new Product();
+//        model.addAttribute("product", product);
+//        model.addAttribute("category", new Category());
+//        return "productAdd";
+//    }
+//
+//    @RequestMapping(value = "/addCategory")
+//    public String addCategory(@ModelAttribute Category category, Model model){
+//        model.addAttribute("category", new Category());
+////        CategoryService.saveCategory(category);
+//        System.out.println(category);
+//        return "categoryAdd";
+//    }
+//
 //    @RequestMapping(value = "/update/{id}")
 //    public String updateProduct(
 //            @PathVariable(value = "id") Long id, Model model) {
@@ -75,7 +80,7 @@ public class ProductController {
 //        model.addAttribute("products", products);
 //        return "productList";
 //    }
-
+//
 //    @RequestMapping("/sort/asc")
 //    public String sortProduct(Model model) {
 //        List<Product> products =productRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
@@ -89,5 +94,5 @@ public class ProductController {
 //        model.addAttribute("products", products);
 //        return "productList";
 //    }
-
-}
+//
+//}

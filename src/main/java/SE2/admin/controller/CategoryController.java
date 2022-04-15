@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/admin/product")
 public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
@@ -23,14 +24,6 @@ public class CategoryController {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("categories", categories);
         return "categoryList";
-    }
-
-    @RequestMapping(value = "/{id}")
-    public String getEmployeeById(
-            @PathVariable(value = "id") Long id, Model model) {
-        Category category = categoryRepository.getById(id);
-        model.addAttribute("category", category);
-        return "categoryDetail";
     }
 
     @RequestMapping(value = "/categoryAdd")
@@ -63,8 +56,15 @@ public class CategoryController {
         categoryRepository.save(category);
         return "redirect:/categoryList";
     }
-
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping("/search")
+    public String searchCategory(
+            Model model,
+            @RequestParam(value = "name") String name) {
+        List<Category> categories = categoryRepository.findByNameContaining(name);
+        model.addAttribute("categories", categories);
+        return "categoryList";
+    }
+    @RequestMapping(value = "/categoryDelete/{id}")
     public String deleteCategory(
             @PathVariable(value = "id") Long id) {
         Category category = categoryRepository.getById(id);
