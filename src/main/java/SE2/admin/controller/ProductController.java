@@ -31,6 +31,14 @@ public class ProductController {
         return "productList";
     }
 
+    @RequestMapping(value = "/{id}")
+    public String showProduct(
+            @PathVariable(value = "id") Long id, Model model) {
+        Product product = productRepository.getById(id);
+        model.addAttribute("product", product);
+        return "productInfo";
+    }
+
     @RequestMapping(value = "/add")
     public String addProduct(Model model) {
         List<Category> categories = categoryRepository.findAll();
@@ -43,16 +51,26 @@ public class ProductController {
     @RequestMapping(value = "/update/{id}")
     public String updateProduct(
             @PathVariable(value = "id") Long id, Model model) {
+        List<Category> categories = categoryRepository.findAll();
         Product product = productRepository.getById(id);
         model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
         return "productUpdate";
+    }
+
+    @RequestMapping(value = "/delete/{id}")
+    public String deleteProduct(
+            @PathVariable(value = "id") Long id) {
+        Product product = productRepository.getById(id);
+        productRepository.delete(product);
+        return "redirect:/admin/product/list";
     }
 
     @RequestMapping(value = "/save")
     public String saveUpdate(
             @RequestParam(value = "id", required = false) Long id,
             @Valid Product product, BindingResult result) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             if (id == null)
                 return "productAdd";
             else
@@ -74,14 +92,14 @@ public class ProductController {
 
     @RequestMapping("/sort/asc")
     public String sortProduct(Model model) {
-        List<Product> products =productRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+        List<Product> products = productRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("products", products);
         return "productList";
     }
 
     @RequestMapping("/sort/desc")
     public String sortProductDesc(Model model) {
-        List<Product> products =productRepository.findAll(Sort.by(Sort.Direction.DESC,"name"));
+        List<Product> products = productRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
         model.addAttribute("products", products);
         return "productList";
     }

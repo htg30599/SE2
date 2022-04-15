@@ -16,7 +16,7 @@ public class Product {
     private String images;
     @NotEmpty(message = "Product price cannot be empty!")
     private int price;
-    private int promotionId;
+//    private int promotionId;
 //    @NotEmpty(message = "Product category cannot be empty!")
 //    private int categoryId;
     @NotEmpty(message = "Product manufacturer cannot be empty!")
@@ -66,14 +66,14 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
-
-    public int getPromotionId() {
-        return promotionId;
-    }
-
-    public void setPromotionId(int promotionId) {
-        this.promotionId = promotionId;
-    }
+//
+//    public int getPromotionId() {
+//        return promotionId;
+//    }
+//
+//    public void setPromotionId(int promotionId) {
+//        this.promotionId = promotionId;
+//    }
 
     public String getManufacturer() {
         return manufacturer;
@@ -98,4 +98,5 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
 }

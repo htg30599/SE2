@@ -39,6 +39,12 @@
 
 <body>
 <div class="container col-md-5 mt-4">
+    <div class="container justify-content-between">
+        <div><h1/></div>
+        <a class="btn btn-info"  th:href="'/admin/product/list'">
+            ALL LIST
+        </a>
+    </div>
     <div class="card">
         <div class="card-body">
             <form th:action="'save'" th:object="${product}" method="post">
@@ -53,7 +59,7 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Product image </label>
-                    <input class="form-control" type="text" th:field="*{images}">
+                    <input class="form-control" type="text" accept="image/x-png,image/gif,image/jpeg" th:field="*{images}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Price </label>
@@ -61,13 +67,13 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Promotion</label>
-                    <input class="form-control" type="text" th:field="*{promotionId}">
+                    <input class="form-control" type="text" th:field="*{promotion}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Category</label>
-                    <select class="form-select" th:field="*{category}">
-                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
-                    </select>
+<!--                    <select class="form-select" th:field="*{category}">-->
+                        <input th:type="checkbox" th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
+<!--                    </select>-->
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Manufacturer</label>
