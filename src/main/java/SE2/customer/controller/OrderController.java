@@ -1,13 +1,15 @@
-package controller;
+package SE2.customer.controller;
 
-import model.Order;
+import SE2.admin.model.User;
+import SE2.admin.repository.UserRepository;
+import SE2.customer.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import repository.OrderRepository;
+import SE2.customer.repository.OrderRepository;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderRepository orderRepository;
+
 
     @RequestMapping(value= "/order")
     public String showOrderList(Model model){
@@ -30,7 +33,7 @@ public class OrderController {
         return "orderDetail";
     }
     @RequestMapping(value= "/add")
-    public String addOrder (Model model) {
+    public String addOrder (Long id, Model model) {
         Order order = new Order();
         model.addAttribute("order", order);
         return "orderAdd";
@@ -56,7 +59,6 @@ public class OrderController {
         orderRepository.delete(order);
         return "redirect:/";
     }
-
 
 
 

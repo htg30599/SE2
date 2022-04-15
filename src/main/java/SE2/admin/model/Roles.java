@@ -1,4 +1,4 @@
-package SE2.admin.entity;
+package SE2.admin.model;
 
 import javax.persistence.*;
 

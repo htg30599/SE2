@@ -1,6 +1,6 @@
 package SE2.admin.service;
 
-import SE2.admin.entity.User;
+import SE2.admin.model.User;
 import SE2.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

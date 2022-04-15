@@ -1,7 +1,7 @@
 package SE2.admin.service;
 
-import SE2.admin.entity.Roles;
-import SE2.admin.entity.User;
+import SE2.admin.model.Roles;
+import SE2.admin.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

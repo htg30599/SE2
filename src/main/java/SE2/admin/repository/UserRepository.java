@@ -1,6 +1,6 @@
 package SE2.admin.repository;
 
-import SE2.admin.entity.User;
+import SE2.admin.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

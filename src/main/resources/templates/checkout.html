@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- Basic -->
 
 <head>
@@ -314,7 +314,7 @@
                             <h3>Billing address</h3>
                         </div>
 
-                        <form th:action="'save'" th:object="${product}" method="post">
+                        <form class="needs-validation" novalidate>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="firstName">First name *</label>

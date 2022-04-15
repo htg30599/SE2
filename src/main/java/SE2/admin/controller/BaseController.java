@@ -1,7 +1,7 @@
 package SE2.admin.controller;
 
-import SE2.admin.entity.Roles;
-import SE2.admin.entity.User;
+import SE2.admin.model.Roles;
+import SE2.admin.model.User;
 import SE2.admin.repository.RolesRepository;
 import SE2.admin.repository.UserRepository;
 
@@ -10,12 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 

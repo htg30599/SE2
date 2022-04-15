@@ -1,4 +1,4 @@
-package SE2.admin.entity;
+package SE2.admin.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false)
     private int gender;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

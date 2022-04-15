@@ -1,15 +1,14 @@
-package model;
+package SE2.customer.model;
 
 import javax.persistence.*;
 
-@Entity
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
 
+public class Order {
+/*    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)*/
     private Long id;
-    private int cart_id;
+    private int cart_id;// cartId
     private String customer_name;
     private String phone_number;
     private String place_of_receipt;
