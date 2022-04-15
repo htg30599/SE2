@@ -1,0 +1,7 @@
+<a th:each="p : ${products}"
+   class="dropdown-item"
+   th:href="'/product/' + ${p.id}">[[${p.name}]]</a>
+
+<!--<a th:each="product : ${products}"
+class="dropdown-item"
+th:href="@{/detail/{id}(id = ${product.id})}">[[${product.name}]]</a>-->

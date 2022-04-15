@@ -1,4 +1,4 @@
-package com.example.se02.model;
+package SE2.user.model;
 
 import javax.persistence.*;
 

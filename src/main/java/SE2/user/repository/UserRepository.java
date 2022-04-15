@@ -1,6 +1,6 @@
-package com.example.se02.repository;
+package SE2.user.repository;
 
-import com.example.se02.model.User;
+import SE2.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

@@ -1,7 +1,7 @@
-package com.example.se02.controller;
+package SE2.user.controller;
 
-import com.example.se02.model.User;
-import com.example.se02.repository.UserRepository;
+import SE2.user.model.User;
+import SE2.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,7 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @RequestMapping("/")
     public String showAccountDetail(Model model,
                                  @PathVariable(value = "id") Long id) {
         User user = userRepository.getById(id);

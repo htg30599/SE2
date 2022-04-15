@@ -1,10 +1,9 @@
-package com.example.se02.model;
+package SE2.user.model;
 
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Collection;
 
 @Entity
 public class User {
@@ -32,11 +31,14 @@ public class User {
     @Length(min = 9, max = 20)
     private String phoneNumber;
 
-    @ManyToMany
-    @JoinTable(name = "people_roles",
-        joinColumns = @JoinColumn(name = "User_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+//    @ManyToMany
+//    @JoinTable(name = "people_roles",
+//        joinColumns = @JoinColumn(name = "User_id"),
+//        inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Collection<Role> roles;
+
+    @OneToOne
+    private Role role;
 
     public void setId(Long id) {
         this.id = id;
@@ -101,12 +103,21 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+//
+//    public Collection<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Collection<Role> roles) {
+//        this.roles = roles;
+//    }
 
-    public Collection<Role> getRoles() {
-        return roles;
+
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
