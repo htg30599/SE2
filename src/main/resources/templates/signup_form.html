@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <title>Sign Up - CodeJava</title>
@@ -25,19 +25,19 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-4 col-form-label">Phone number(10 digit): </label>
+                <label class="col-4 col-form-label">Phonenumber: </label>
                 <div class="col-8">
                     <input type="tel" th:field="*{phoneNumber}" class="form-control"
                            required minlength="2" maxlength="20" />
                 </div>
             </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">E-mail: </label>
-                    <div class="col-8">
-                        <input type="email" th:field="*{email}" class="form-control" required />
-                    </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">E-mail: </label>
+                <div class="col-8">
+                    <input type="email" th:field="*{email}" class="form-control" required />
                 </div>
+            </div>
 
             <div class="form-group row">
                 <label class="col-4 col-form-label">Address: </label>
@@ -54,12 +54,13 @@
                            required minlength="6" maxlength="10"/>
                 </div>
             </div>
-            <div class="col-8">
-<!--                <select>-->
-<!--                    <option th:each="role:${roles}" th/>-->
-<!--                </select>-->
-                Roles<br/>
-                <input type="text" th:field="*{roles}" th:text="1"/>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Select your gender: </label>
+                <div class="col-8"  >
+                    <input type="radio" th:field="*{gender}" value="1"/>Male
+                    <input type="radio" th:field="*{gender}" value="0"/>Female
+                </div>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Sign Up</button>

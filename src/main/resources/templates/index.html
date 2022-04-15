@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <!-- Basic -->
 
 <head>
@@ -443,6 +444,8 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+
+    <h1 sec:authorize="hasAnyAuthority('ADMIN')">Admin</h1>
 </body>
 
 </html>

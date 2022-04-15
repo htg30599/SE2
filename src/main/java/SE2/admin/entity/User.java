@@ -1,6 +1,8 @@
 package SE2.admin.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -26,8 +28,13 @@ public class User {
     @Column(nullable = false)
     private int gender;
 
-    @ManyToOne
-    private Roles roles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Roles> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -85,11 +92,11 @@ public class User {
         this.gender = gender;
     }
 
-    public Roles getRoles() {
+    public Set<Roles> getRoles() {
         return roles;
     }
 
-    public void setRoles(Roles roles) {
+    public void setRoles(Set<Roles> roles) {
         this.roles = roles;
     }
 }

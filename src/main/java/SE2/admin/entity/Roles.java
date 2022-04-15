@@ -1,23 +1,21 @@
 package SE2.admin.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Roles {
     @Id
+    @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
 
-    public void setId(Long id) {
-        this.id = id;
+    private Integer id;
+
+    private String name;
+    public Integer getId() {
+        return id;
     }
 
-    public Long getId() {
-        return id;
+    public Roles() {
     }
 
     public String getName() {
@@ -27,4 +25,6 @@ public class Roles {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
