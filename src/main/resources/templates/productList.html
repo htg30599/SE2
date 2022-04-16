@@ -72,7 +72,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product : ${products}">
+        <tr th:each="product : ${productList}">
             <td th:text="${product.id}"/>
             <td>
                 <a th:href="'/admin/product/' + ${product.id}">
@@ -83,7 +83,9 @@
                 <h6 th:text="${product.shortDesc}"/>
             </td>
             <td th:text="${product.price}"/>
-            <td th:text="${product.promotionId}"/>
+            <td th:each="promotes:${promotionList}">
+                <p th:each="promote:${promotes}" th:text="${promote.name}"></p>
+            </td>
             <td th:each="cate:${product.category}">
                 <p th:text="${cate.name}"/>
             </td>

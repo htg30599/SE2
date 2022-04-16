@@ -47,7 +47,7 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <form th:action="'/admin/promotion/save'" th:object="${promotion}" method="post">
+            <form th:action="'save'" th:object="${promotion}" method="post">
                 <h2 class="text-center text-primary">Edit promotion</h2>
                 <fieldset class="form-group">
                     <label>Promotion name </label>
@@ -59,15 +59,15 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Begin date </label>
-                    <input class="form-control" type="date" th:field="*{beginDate}">
+                    <input class="form-control" type="text" th:field="*{beginDate}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>End date</label>
-                    <input class="form-control" type="date" th:field="*{endDate}">
+                    <input class="form-control" type="text" th:field="*{endDate}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Discount</label>
-                    <input class="form-control" type="number" th:field="*{percentDiscount}" th:text="%">
+                    <input class="form-control" type="number" th:field="*{percentDiscount}">
                 </fieldset>
                 <input hidden th:field="*{id}">
                 <div class="col text-center mt-3">
@@ -96,13 +96,7 @@
 <script src="js/form-validator.min.js"></script>
 <script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
-<script>
-    const image = document.querySelector('img');
 
-    onImageChange = (event) => {
-        image.src =
-    }
-</script>
 </body>
 
 </html>

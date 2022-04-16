@@ -16,8 +16,8 @@ public class Promotion {
     private Date endDate;
     private int percentDiscount;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Product> products;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private List<Product> products;
 
     public void setId(Long id) {
         this.id = id;
@@ -67,11 +67,11 @@ public class Promotion {
         this.percentDiscount = percentDiscount;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+//    public List<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
 }

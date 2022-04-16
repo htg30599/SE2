@@ -2,6 +2,7 @@ package SE2.admin.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -26,6 +27,9 @@ public class Product {
 
     @ManyToOne
     private Category category;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Promotion> promotions;
 
     public Long getId() {
         return id;
@@ -99,4 +103,11 @@ public class Product {
         this.category = category;
     }
 
+    public List<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
+    }
 }

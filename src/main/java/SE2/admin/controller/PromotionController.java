@@ -50,9 +50,7 @@ public class PromotionController {
     public String updatePromotion(
             @PathVariable(value = "id") Long id, Model model) {
         Promotion promotion = promotionRepository.getById(id);
-        List<Product> products = productRepository.findAll();
         model.addAttribute("promotion", promotion);
-        model.addAttribute("products", products);
         return "promotionUpdate";
     }
 

@@ -59,8 +59,7 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Product image </label>
-                    <input class="form-control imageText" type="text" onChange={onImageChange} th:field="*{images}">
-                    <img id="target" src="this.state.image">
+                    <input class="form-control imageText" type="text"th:field="*{images}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Price </label>
@@ -68,7 +67,10 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Promotion</label>
-                    <input class="form-control" type="text" th:field="*{promotionId}">
+                    <label>Promotion</label>
+                    <div th:each="promotion: ${promotions}">
+                        <input class="check-mark" type="checkbox" th:value="${promotion.id}" th:text="${promotion.name}+'-'+${promotion.percentDiscount}+'%'">
+                    </div>
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Category</label>
@@ -111,13 +113,7 @@
 <script src="js/form-validator.min.js"></script>
 <script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
-<script>
-    const image = document.querySelector('img');
 
-    onImageChange = (event) => {
-        image.src =
-    }
-</script>
 </body>
 
 </html>
