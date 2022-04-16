@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package SE2.admin.controller;
 
 import SE2.admin.model.Roles;
@@ -19,13 +19,15 @@ import java.util.Set;
 
 
 @Controller
-
 public class BaseController {
+
+    // Không dùng trực tiếp repository ở controller mà tạo service ra
     @Autowired
     private UserRepository repo;
 
     @Autowired
     private RolesRepository rolesRepository;
+
 
     @GetMapping("/Home")
     public String index() {
@@ -80,19 +82,3 @@ public class BaseController {
     }
 
 
-=======
-
-package SE2.admin.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@Controller
-public class BaseController {
-
-    @RequestMapping("/home")
-    public String index(){
-        return index();
-    }
-}
->>>>>>> origin/thuyntm

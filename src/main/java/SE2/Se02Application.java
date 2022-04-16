@@ -1,21 +1,16 @@
-<<<<<<<< HEAD:src/main/java/SE2/Se02Application.java
+
 package SE2;
-========
-package SE2.user;
->>>>>>>> origin/trangdh:src/main/java/SE2/user/Se02Application.java
+
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-@SpringBootApplication
-=======
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
->>>>>>> origin/phuonglt
-=======
-@SpringBootApplication
->>>>>>> origin/thuyntm
+//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication()
+@EnableJpaRepositories
 public class Se02Application {
 
     public static void main(String[] args) {

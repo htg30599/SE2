@@ -1,4 +1,4 @@
-package SE2.Admin.model;
+package SE2.admin.model;
 
 public enum Status {
     Pending,

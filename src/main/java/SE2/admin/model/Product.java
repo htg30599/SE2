@@ -3,6 +3,7 @@ package SE2.admin.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+//Dùng chung cả kể khac man hinh (admin,user,....)
 @Entity
 public class Product {
     @Id

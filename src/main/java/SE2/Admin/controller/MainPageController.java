@@ -1,11 +1,12 @@
-package SE2.Admin.controller;
+package SE2.admin.controller;
 
-import SE2.Admin.model.Product;
-import SE2.Admin.repository.ProductRepository;
+import SE2.admin.model.Product;
+import SE2.admin.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package SE2.Admin.controller;
+package SE2.admin.controller;
 
 
 import SE2.Admin.model.DeliveryStatus;
 import SE2.Admin.model.Status;
-import SE2.Admin.repository.DeliveryRepository;
+import SE2.admin.repository.DeliveryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,6 @@ import java.util.List;
 
 
 @Controller
-
 public class DeliveryController {
     @Autowired (required = false)
     DeliveryRepository deliveryRepository;
