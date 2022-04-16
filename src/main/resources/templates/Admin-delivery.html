@@ -49,7 +49,7 @@
                     <label for="Status">Choose status</label>
                     <select class="form-control selectpicker" th:field="*{status}" id="status">
                         <option value="">Nothing selected</option>
-                        <option th:each="status : ${T(SE2.Admin.model.Status).values()}"
+                        <option th:each="status : ${T(SE2.admin.model.Status).values()}"
                                 th:value="${status}"
                                 th:text="${status}">status
                         </option>

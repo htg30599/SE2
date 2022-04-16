@@ -66,14 +66,10 @@
                     <input class="form-control" type="text" th:field="*{price}">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Promotion</label>
-                    <input class="form-control" type="text" th:field="*{promotion}">
-                </fieldset>
-                <fieldset class="form-group">
                     <label>Category</label>
-<!--                    <select class="form-select" th:field="*{category}">-->
-                        <input th:type="checkbox" th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
-<!--                    </select>-->
+                    <select class="form-select" th:field="*{category}">
+                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
+                    </select>
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Manufacturer</label>
