@@ -1,11 +1,9 @@
 package SE2.admin.controller;
 
 import SE2.admin.model.Category;
-import SE2.admin.model.Promotion;
 import SE2.admin.repository.CategoryRepository;
 import SE2.admin.repository.ProductRepository;
 import SE2.admin.model.Product;
-import SE2.admin.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -26,19 +24,11 @@ public class ProductController {
     ProductRepository productRepository;
     @Autowired
     CategoryRepository categoryRepository;
-    @Autowired
-    PromotionRepository promotionRepository;
 
     @RequestMapping(value = "/list")
     public String showProductList(Model model) {
         List<Product> productList = productRepository.findAll();
-        List<List<Promotion>> promotionList = new ArrayList<>();
-        for (Product product : productList) {
-            List<Promotion> promotions = promotionRepository.findAllByProducts(product);
-            promotionList.add(promotions);
-        }
         model.addAttribute("productList", productList);
-        model.addAttribute("promotionList",promotionList);
         return "productList";
     }
 
@@ -53,11 +43,9 @@ public class ProductController {
     @RequestMapping(value = "/add")
     public String addProduct(Model model) {
         List<Category> categories = categoryRepository.findAll();
-        List<Promotion> promotions = promotionRepository.findAll();
         Product product = new Product();
         model.addAttribute("product", product);
         model.addAttribute("categories", categories);
-        model.addAttribute("promotions", promotions);
         return "productAdd";
     }
 
@@ -65,11 +53,9 @@ public class ProductController {
     public String updateProduct(
             @PathVariable(value = "id") Long id, Model model) {
         List<Category> categories = categoryRepository.findAll();
-        List<Promotion> promotions = promotionRepository.findAll();
         Product product = productRepository.getById(id);
         model.addAttribute("product", product);
         model.addAttribute("categories", categories);
-        model.addAttribute("promotions", promotions);
         return "productUpdate";
     }
 

@@ -64,7 +64,6 @@
                 </a>
             </th>
             <th>Price</th>
-            <th>Promotion</th>
             <th>Category</th>
             <th>Manufacturer</th>
             <th>Quantity</th>
@@ -83,9 +82,6 @@
                 <h6 th:text="${product.shortDesc}"/>
             </td>
             <td th:text="${product.price}"/>
-            <td th:each="promotes:${promotionList}">
-                <p th:each="promote:${promotes}" th:text="${promote.name}"></p>
-            </td>
             <td th:each="cate:${product.category}">
                 <p th:text="${cate.name}"/>
             </td>
