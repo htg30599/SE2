@@ -1,4 +1,4 @@
-package SE2.customer;
+package SE2.repository;
 
 import SE2.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
