@@ -1,6 +1,6 @@
-package SE2.customer.repository;
+package SE2.customer;
 
-import SE2.customer.model.Order;
+import SE2.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

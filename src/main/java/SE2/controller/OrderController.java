@@ -1,6 +1,6 @@
-package SE2.customer.controller;
+package SE2.controller;
 
-import SE2.customer.model.Order;
+import SE2.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import SE2.customer.repository.OrderRepository;
+import SE2.customer.OrderRepository;
 
 import java.util.List;
 
