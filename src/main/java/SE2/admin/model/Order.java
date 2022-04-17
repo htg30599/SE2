@@ -9,17 +9,17 @@ public class Order {
     @Column(name = "id", nullable = false)
 
     private Long id;
-    private int cart_id;
-    private String customer_name;
-    private String phone_number;
-    private String place_of_receipt;
+    private int cartId;
+    private String customerName;
+    private String phoneNumber;
+    private String placeOfReceipt;
     private String note;
-    private String payment_method;
-    private int total_price;
-    private int delivery_status_id;
-    private int ship_price;
-    private String create_date;
-    private int creator_id;
+    private String paymentMethod;
+    private int totalPrice;
+    private int deliveryStatusId;
+    private int shipPrice;
+    private String createDate;
+    private int creatorId;
 
     public Long getId() {
         return id;
@@ -29,36 +29,36 @@ public class Order {
         this.id = id;
     }
 
-    public int getCart_id() {
-        return cart_id;
+    public int getCartId() {
+        return cartId;
     }
 
-    public void setCart_id(int cart_id) {
-        this.cart_id = cart_id;
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomer_name(String customer_name) {
-        this.customer_name = customer_name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getPlace_of_receipt() {
-        return place_of_receipt;
+    public String getPlaceOfReceipt() {
+        return placeOfReceipt;
     }
 
-    public void setPlace_of_receipt(String place_of_receipt) {
-        this.place_of_receipt = place_of_receipt;
+    public void setPlaceOfReceipt(String placeOfReceipt) {
+        this.placeOfReceipt = placeOfReceipt;
     }
 
     public String getNote() {
@@ -69,51 +69,51 @@ public class Order {
         this.note = note;
     }
 
-    public String getPayment_method() {
-        return payment_method;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPayment_method(String payment_method) {
-        this.payment_method = payment_method;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public int getTotal_price() {
-        return total_price;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal_price(int total_price) {
-        this.total_price = total_price;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public int getDelivery_status_id() {
-        return delivery_status_id;
+    public int getDeliveryStatusId() {
+        return deliveryStatusId;
     }
 
-    public void setDelivery_status_id(int delivery_status_id) {
-        this.delivery_status_id = delivery_status_id;
+    public void setDeliveryStatusId(int deliveryStatusId) {
+        this.deliveryStatusId = deliveryStatusId;
     }
 
-    public int getShip_price() {
-        return ship_price;
+    public int getShipPrice() {
+        return shipPrice;
     }
 
-    public void setShip_price(int ship_price) {
-        this.ship_price = ship_price;
+    public void setShipPrice(int shipPrice) {
+        this.shipPrice = shipPrice;
     }
 
-    public String getCreate_date() {
-        return create_date;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setCreate_date(String create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
-    public int getCreator_id() {
-        return creator_id;
+    public int getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator_id(int creator_id) {
-        this.creator_id = creator_id;
+    public void setCreatorId(int creatorId) {
+        this.creatorId = creatorId;
     }
 }
