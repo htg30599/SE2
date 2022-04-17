@@ -14,7 +14,6 @@ import java.util.List;
 
 
 @Controller
-
 public class MainPageController {
     @Autowired (required = false)
     ProductRepository productRepository;
