@@ -27,7 +27,7 @@ public class ProductController {
     @RequestMapping(value = "/list")
     public String showProductList(Model model) {
         List<Product> productList = productRepository.findAll();
-        model.addAttribute("products", productList);
+        model.addAttribute("productList", productList);
         return "productList";
     }
 
