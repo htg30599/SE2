@@ -21,6 +21,7 @@ import java.util.Set;
 @Controller
 public class BaseController {
 
+    // Không dùng trực tiếp repository ở controller mà tạo service ra
     @Autowired
     private UserRepository repo;
 
@@ -28,7 +29,7 @@ public class BaseController {
     private RolesRepository rolesRepository;
 
 
-    @GetMapping("/home")
+    @GetMapping("/Home")
     public String index() {
 
         return index();

@@ -1,8 +1,10 @@
 package SE2.admin.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 //Dùng chung cả kể khac man hinh (admin,user,....)
 @Entity
@@ -16,14 +18,11 @@ public class Product {
     private String shortDesc;
     @NotEmpty(message = "Product image cannot be empty!")
     private String images;
-    @NotNull(message = "Product price cannot be empty!")
     private int price;
 //    private int promotionId;
 //    @NotEmpty(message = "Product category cannot be empty!")
 //    private int categoryId;
-    @NotEmpty(message = "Product manufacturer cannot be empty!")
     private String manufacturer;
-    @NotNull(message = "Product quantity cannot be empty!")
     private int quantity;
 
     @ManyToOne

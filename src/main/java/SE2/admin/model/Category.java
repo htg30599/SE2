@@ -1,6 +1,7 @@
 package SE2.admin.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Category {
@@ -8,8 +9,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String name;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -18,6 +19,7 @@ public class Category {
         return id;
     }
 
+    @NotEmpty(message = "*Name cannot be empty!")
     public String getName() {
         return name;
     }

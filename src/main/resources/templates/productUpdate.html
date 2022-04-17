@@ -52,6 +52,7 @@
                 <fieldset class="form-group">
                     <label>Product name </label>
                     <input class="form-control" type="text" th:field="*{name}">
+                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Short description </label>
@@ -59,25 +60,30 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Product image </label>
-                    <input class="form-control imageText" type="text"th:field="*{images}">
+                    <input class="form-control" type="text" accept="image/x-png,image/gif,image/jpeg" th:field="*{images}">
+                    <p style="color: red" th:if="${#fields.hasErrors('images')}" th:errorclass="error" th:errors="*{images}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Price </label>
                     <input class="form-control" type="text" th:field="*{price}">
+                    <p style="color: red" th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Category</label>
                     <select class="form-select" th:field="*{category}">
-                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}" th:field="*{category}"/>
+                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
+                        <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errorclass="error" th:errors="*{category}" />
                     </select>
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Manufacturer</label>
                     <input class="form-control" type="text" th:field="*{manufacturer}">
+                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{manufacturer}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>quantity</label>
                     <input class="form-control" type="text" th:field="*{quantity}">
+                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{quantity}" />
                 </fieldset>
                 <input hidden th:field="*{id}">
                 <div class="col text-center mt-3">
