@@ -28,7 +28,7 @@ public class BaseController {
     private RolesRepository rolesRepository;
 
 
-    @GetMapping("/Home")
+    @GetMapping("/home")
     public String index() {
 
         return index();
