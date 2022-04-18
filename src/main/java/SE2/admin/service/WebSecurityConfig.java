@@ -11,12 +11,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    AuthenticationSuccessHandler successHandler;
     @Autowired
     private DataSource dataSource;
 
@@ -39,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
@@ -47,12 +51,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/homepage").authenticated()
+                .antMatchers("/").authenticated()
+                .antMatchers("/adminHomepage").hasAnyAuthority("admin")
+                .antMatchers("/").hasAnyAuthority("user")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
+                .successHandler(successHandler)
                 .usernameParameter("email")
-                .defaultSuccessUrl("/homepage")
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();

@@ -3,9 +3,9 @@ package SE2.admin.model;
 import javax.persistence.*;
 
 @Entity
-public class Roles {
+public class Role {
     @Id
-    @Column(name = "role_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer id;
@@ -15,7 +15,7 @@ public class Roles {
         return id;
     }
 
-    public Roles() {
+    public Role() {
     }
 
     public String getName() {

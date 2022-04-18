@@ -24,7 +24,7 @@ public class Product {
 //    private int categoryId;
     private String manufacturer;
     private int quantity;
-
+//
     @ManyToOne
     private Category category;
 

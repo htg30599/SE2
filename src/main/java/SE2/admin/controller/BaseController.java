@@ -1,20 +1,25 @@
 
 package SE2.admin.controller;
 
-import SE2.admin.model.Roles;
+import SE2.admin.model.Category;
+import SE2.admin.model.Product;
+import SE2.admin.model.Role;
 import SE2.admin.model.User;
-import SE2.admin.repository.RolesRepository;
+import SE2.admin.repository.CategoryRepository;
+import SE2.admin.repository.ProductRepository;
+import SE2.admin.repository.RoleRepository;
 import SE2.admin.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,14 +31,20 @@ public class BaseController {
     private UserRepository repo;
 
     @Autowired
-    private RolesRepository rolesRepository;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
 
-    @GetMapping("/Home")
-    public String index() {
-
-        return index();
-    }
+//    @GetMapping("/Home")
+//    public String index() {
+//
+//        return index();
+//    }
 
     @GetMapping("/register")
     public String showSignUpForm(Model model) {
@@ -48,19 +59,47 @@ public class BaseController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        Roles roles= rolesRepository.getById(1);
-        Set<Roles> rolesSet=new HashSet<>();
-        rolesSet.add(roles);
-        user.setRoles(rolesSet);
+        Role role = roleRepository.getById(1);
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(role);
+        user.setRole(role);
         repo.save(user);
 
         return "register_success";
     }
 
-   @GetMapping("/checkout")
+    @GetMapping("/checkout")
     public String showCheckout(Model model) {
         return "checkout";
-   }
+    }
+
+    @RequestMapping("/profile/{id}")
+    public String viewProfile(
+            @PathVariable(value = "id") Long id, Model model) {
+        User user = repo.getById(id);
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    @RequestMapping("/profile/save")
+    public String saveProfile(@RequestParam(value = "id", required = false) Long id,
+                              @Valid User user, BindingResult result,
+                              Model model) {
+        if (result.hasErrors()) {
+            return "profile";
+        }
+        repo.save(user);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/category/{id}")
+    public String showProducts(
+            @PathVariable(value = "id") Long id, Model model) {
+        Category category = categoryRepository.getById(id);
+        List<Product> products = productRepository.findByCategory(category);
+        model.addAttribute("products", products);
+        return "shop";
+    }
 
   /*  @RequestMapping(value = "/login")
     public String loginTemplate() {
@@ -79,6 +118,6 @@ public class BaseController {
         *//*if (repo.findByEmail(userName).getRoles().getId() == 1)*//*
             return "redirect:/";*/
 
-    }
+}
 
 

@@ -72,4 +72,3 @@ public class CategoryController {
         return "redirect:/admin/category/list";
     }
 }
-

@@ -1,10 +1,14 @@
 package SE2.admin.service;
 
+import SE2.admin.model.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import SE2.admin.model.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class CustomerUserDetail implements UserDetails {
 
@@ -16,7 +20,10 @@ public class CustomerUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Role role = user.getRole();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        return authorities;
     }
 
     @Override
