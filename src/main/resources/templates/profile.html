@@ -39,14 +39,14 @@
     <div class="card">
         <div class="card-body">
             <form th:action="'/profile/save'" th:object="${user}" method="post">
-                <h2 class="text-center text-primary">Profile</h2>
+                <h2 class="text-center text-primary"th:text="'Profile '+${user.role.name}"></h2>
                 <fieldset class="form-group">
                     <label>User Name: </label>
                     <input class="form-control" type="text" th:field="*{userName}" required minlength="2"
                            maxlength="20">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Phone number: </label>
+                    <label>Phone Number: </label>
                     <input class="form-control" type="text" th:field="*{phoneNumber}" required minlength="2"
                            maxlength="20"/>
                 </fieldset>
@@ -60,25 +60,42 @@
                            maxlength="20"/>
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Password: </label>
-                    <input type="password" th:field="*{password}" class="form-control" required minlength="6"
-                           maxlength="10"/>
+                    <a class="password-change" onclick="changePw()">Change your password?</a>
+                    <div class="password-box" style="display: none">
+                        <h1></h1>
+                        <label>Old password: </label>
+                        <input type="password" class="form-control" required
+                               minlength="6"
+                               maxlength="10"/>
+                        <label>New password: </label>
+                        <input type="password" th:field="*{password}" class="form-control" required
+                               minlength="6"
+                               maxlength="10"/>
+                        <label>Confirm your new password: </label>
+                        <input type="password" class="form-control" required
+                               minlength="6"
+                               maxlength="10"/>
+                        <div class="col text-center mt-3">
+                            <button disabled type="submit" href="/" class="btn btn-info password-confirm">Confirm</button>
+                            <button type="submit" href="/" class="btn btn-danger password-cancel">Cancel</button>
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset class="form-group">
                     <label class="col-4 col-form-label">Gender: </label>
                     <div class="col-8">
                         <input type="radio" th:field="*{gender}" value="1"/>Male
+                        <h1></h1>
                         <input type="radio" th:field="*{gender}" value="0"/>Female
                     </div>
                 </fieldset>
                 <input hidden th:field="*{id}">
+                <h1></h1>
                 <div class="col text-center mt-3">
                     <button type="submit" class="btn btn-success">Update</button>
+                    <button type="submit" href="/" class="btn btn-dark">Cancel</button>
                 </div>
             </form>
-            <div class="col text-center mt-3">
-                <button type="submit" href="/" class="btn btn-dark">Cancel</button>
-            </div>
         </div>
     </div>
 </div>
@@ -101,6 +118,15 @@
 <script src="js/form-validator.min.js"></script>
 <script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
+<script>
+    const passwordBox = document.querySelector(".password-box")
+    const confirm = document.querySelector(".password-confirm")
+    const cancel = document.querySelector(".password-cancel")
+    function changePw() {
+            passwordBox.style.display = "block"
+            document.querySelector(".password-change").textContent = "Change your password:"
+    }
+</script>
 
 </body>
 </html>

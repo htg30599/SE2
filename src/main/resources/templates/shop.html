@@ -93,7 +93,7 @@
                                             <img th:src="${product.images}" class="img-fluid" alt="Image" style="height: 350px;width: 270px; padding: 20px 10px">
                                             <div class="mask-icon">
                                                 <ul>
-                                                    <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                                    <li><a th:href="'/product/'+${product.id}" data-toggle="tooltip" data-placement="right"
                                                            title="View"><i class="fas fa-eye"></i></a></li>
                                                     <li><a href="#" data-toggle="tooltip" data-placement="right"
                                                            title="Compare"><i class="fas fa-sync-alt"></i></a></li>
@@ -104,7 +104,8 @@
                                             </div>
                                         </div>
                                         <div class="why-text">
-                                            <h4 th:text="${product.name}"/>
+                                            <h1 th:text="${product.name}"/>
+                                            <h4 th:text="${product.shortDesc}"/>
                                             <h5 th:text="${product.price}"/>
                                         </div>
                                     </div>

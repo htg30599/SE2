@@ -101,6 +101,13 @@ public class BaseController {
         return "shop";
     }
 
+    @RequestMapping(value = "/product/{id}")
+    public String showProduct(
+            @PathVariable(value = "id") Long id, Model model) {
+        Product product = productRepository.getById(id);
+        model.addAttribute("product", product);
+        return "userProductInfo";
+    }
   /*  @RequestMapping(value = "/login")
     public String loginTemplate() {
         return "login";
