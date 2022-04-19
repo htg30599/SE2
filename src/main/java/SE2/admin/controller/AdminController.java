@@ -9,7 +9,7 @@ public class AdminController {
     @RequestMapping(value = "/adminHomepage")
 @PreAuthorize("ADMIN")
     public String userHome(){
-        return "AdminHomepage";
+        return "adminHomepage";
     }
 }
 
