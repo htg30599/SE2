@@ -11,6 +11,8 @@ public class User {
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 
+    private String image;
+
     @Column(nullable = false, length = 45)
     private String userName;
 
@@ -51,6 +53,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getUserName() {

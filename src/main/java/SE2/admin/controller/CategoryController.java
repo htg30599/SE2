@@ -15,7 +15,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin/category")
-public class CategoryController {
+public class
+CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
 

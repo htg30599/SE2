@@ -25,7 +25,7 @@ public class BaseController {
 
     // Không dùng trực tiếp repository ở controller mà tạo service ra
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -60,7 +60,8 @@ public class BaseController {
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(role);
         user.setRole(role);
-        repo.save(user);
+        user.setImage("/images/icon.png");
+        userRepository.save(user);
 
         return "register_success";
     }
@@ -73,7 +74,7 @@ public class BaseController {
     @RequestMapping("/profile/{id}")
     public String viewProfile(
             @PathVariable(value = "id") Long id, Model model) {
-        User user = repo.getById(id);
+        User user = userRepository.getById(id);
         ChangePw changePw = new ChangePw("", "", "");
         model.addAttribute("user", user);
         model.addAttribute("changePw", changePw);
@@ -104,7 +105,7 @@ public class BaseController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        repo.save(user);
+        userRepository.save(user);
         return "profile";
     }
 
