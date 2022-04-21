@@ -53,55 +53,55 @@
                 <fieldset class="form-group">
                     <label>Cart ID </label>
                     <input class="form-control" type="text" th:field="*{cartId}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{cartId}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('cartId')}" th:errorclass="error" th:errors="*{cartId}" />
                 </fieldset>
 
                 <fieldset class="form-group">
                     <label>Customer Name </label>
                     <input class="form-control" type="text" th:field="*{customerName}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{customerName}"></p>
+                    <p style="color: red" th:if="${#fields.hasErrors('customerName')}" th:errorclass="error" th:errors="*{customerName}"></p>
 
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Phone Number</label>
                     <input class="form-control" type="text" th:field="*{phoneNumber}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{phoneNumber}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errorclass="error" th:errors="*{phoneNumber}" />
 
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Place of Receipt</label>
                     <input class="form-control" type="text" th:field="*{placeOfReceipt}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{placeOfReceipt}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('placeOfReceipt')}" th:errorclass="error" th:errors="*{placeOfReceipt}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>note</label>
                     <input class="form-control" type="text" th:field="*{note}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{note}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('note')}" th:errorclass="error" th:errors="*{note}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Payment Method</label>
                     <input class="form-control" type="text" th:field="*{paymentMethod}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{paymentMethod}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('paymentMethod')}" th:errorclass="error" th:errors="*{paymentMethod}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Total Price</label>
                     <input class="form-control" type="text" th:field="*{totalPrice}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{totalPrice}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('totalPrice')}" th:errorclass="error" th:errors="*{totalPrice}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Ship Price</label>
                     <input class="form-control" type="text" th:field="*{shipPrice}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{shipPrice}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('shipPrice')}" th:errorclass="error" th:errors="*{shipPrice}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Create Date</label>
                     <input class="form-control" type="text" th:field="*{createDate}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{createDate}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('createDate')}" th:errorclass="error" th:errors="*{createDate}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Creator Id</label>
                     <input class="form-control" type="text" th:field="*{creatorId}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{creatorId}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('creatorId')}" th:errorclass="error" th:errors="*{creatorId}" />
                 </fieldset>
                 <input hidden th:field="*{id}">
                 <div class="col text-center mt-3">
