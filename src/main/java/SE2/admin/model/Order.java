@@ -1,24 +1,35 @@
 package SE2.admin.model;
 
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "cart_id")
     private int cartId;
+    @Column(name= "customer_name")
     private String customerName;
+    @Column(name="phone_number")
     private String phoneNumber;
+    @Column(name="place_of_receipt")
     private String placeOfReceipt;
+    @Column(name="note")
     private String note;
+    @Column(name="payment_method")
     private String paymentMethod;
+    @Column(name="total_price")
     private int totalPrice;
-    private int deliveryStatusId;
+    @Column(name="ship_price")
     private int shipPrice;
+    @Column(name="create_date")
     private String createDate;
+    @Column(name="create_id")
     private int creatorId;
 
     public Long getId() {
@@ -85,13 +96,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public int getDeliveryStatusId() {
-        return deliveryStatusId;
-    }
 
-    public void setDeliveryStatusId(int deliveryStatusId) {
-        this.deliveryStatusId = deliveryStatusId;
-    }
 
     public int getShipPrice() {
         return shipPrice;

@@ -49,10 +49,14 @@
         <div class="card-body">
             <form th:action="'save'" th:object="${order}" method="post">
                 <h2 class="text-center text-primary">Add order</h2>
+<!--                <fieldset class="form-group">-->
+<!--                    <label>ID </label>-->
+<!--                    <input class="form-control" type="text" th:field="*{id}">-->
+<!--                </fieldset>-->
                 <fieldset class="form-group">
                     <label>Cart ID </label>
                     <input class="form-control" type="text" th:field="*{cartId}">
-                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{cartId}"></p>
+                    <p style="color: red" th:if="${#fields.hasErrors('cartId')}" th:errorclass="error" th:errors="*{cartId}"></p>
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Customer Name </label>
@@ -66,7 +70,7 @@
                 <fieldset class="form-group">
                     <label>Place of Receipt</label>
                     <input class="form-control" type="text" th:field="*{placeOfReceipt}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{manufacturer}" />
+                    <p style="color: red" th:if="${#fields.hasErrors('placeOfReceipt')}" th:errorclass="error" th:errors="*{manufacturer}" />
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Note</label>

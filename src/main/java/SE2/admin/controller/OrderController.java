@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import SE2.admin.repository.OrderRepository;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -38,7 +37,6 @@ public class OrderController {
 
     @RequestMapping(value = "/add")
     public String addOrder(Model model){
-        List<Order> order = orderRepository.findAll();
         Order order1 = new Order();
         model.addAttribute("order", order1);
         return "orderAdd";
@@ -83,8 +81,8 @@ public class OrderController {
     @RequestMapping("/search")
     public String searchOrder(
             Model model,
-            @RequestParam(value = "name") String name) {
-        List<Order> orders = orderRepository.findByNameContaining(name);
+            @RequestParam(value = "id") int id) {
+        List<Order> orders = orderRepository.findAllById(id);
         model.addAttribute("orderList", orders);
         return "orderInfo";
     }
