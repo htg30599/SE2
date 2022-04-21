@@ -1,10 +1,7 @@
 
 package SE2.admin.controller;
 
-import SE2.admin.model.Category;
-import SE2.admin.model.Product;
-import SE2.admin.model.Role;
-import SE2.admin.model.User;
+import SE2.admin.model.*;
 import SE2.admin.repository.CategoryRepository;
 import SE2.admin.repository.ProductRepository;
 import SE2.admin.repository.RoleRepository;
@@ -59,7 +56,7 @@ public class BaseController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        Role role = roleRepository.getById(1);
+        Role role = roleRepository.getById(2);
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(role);
         user.setRole(role);
@@ -77,8 +74,24 @@ public class BaseController {
     public String viewProfile(
             @PathVariable(value = "id") Long id, Model model) {
         User user = repo.getById(id);
+        ChangePw changePw = new ChangePw("", "", "");
         model.addAttribute("user", user);
+        model.addAttribute("changePw", changePw);
         return "profile";
+    }
+
+    @RequestMapping(name = "/profile/checkPass/{id}", method = RequestMethod.POST)
+    public String isPasswordCorrect(@PathVariable(value = "id", required = false) Long id,
+                                     @RequestBody ChangePw changePw,
+                                     @Valid User user,
+                                     Model model) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String enteredPassword = encoder.encode(changePw.getPassword());
+        if (enteredPassword.equals(user.getPassword()) && changePw.getNewPassword().equals(changePw.getConfirmPassword())) {
+            changePw.setPassword(encoder.encode(changePw.getNewPassword()));
+        } else changePw = new ChangePw("", "", "");
+        model.addAttribute("changePw", changePw);
+        return "redirect:#";
     }
 
     @RequestMapping("/profile/save")
@@ -88,8 +101,11 @@ public class BaseController {
         if (result.hasErrors()) {
             return "profile";
         }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         repo.save(user);
-        return "redirect:/";
+        return "profile";
     }
 
     @RequestMapping("/category/{id}")
