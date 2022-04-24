@@ -63,5 +63,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/").permitAll();
     }
 
+    // đang thiếu phần trả về homepage để hiện signout
+
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/homepage").authenticated()
+//                .anyRequest().permitAll()
+//                .and()
+//                .formLogin()
+//                .usernameParameter("email")
+//                .defaultSuccessUrl("/homepage")
+//                .permitAll()
+//                .and()
+//                .logout().logoutSuccessUrl("/").permitAll();
+//    }
+
 
 }

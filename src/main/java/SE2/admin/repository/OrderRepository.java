@@ -12,8 +12,4 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 
     List<Order> findAllById(int id);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 940bdc3fd1dbf4446e3a298ecf340b75001e5972
