@@ -13,3 +13,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findAllById(int id);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d540d7eb6b2ce1f1993c6ce4390872a1c3318bc

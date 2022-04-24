@@ -24,7 +24,7 @@ public class OrderController {
     public  String showOrderList(Model model){
         List<Order> orderList = orderRepository.findAll();
         model.addAttribute("orderList", orderList);
-        return "orderInfo";
+        return "orderList";
     }
 
     @RequestMapping(value = "/{id}")
