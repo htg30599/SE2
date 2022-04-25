@@ -23,7 +23,6 @@ import java.util.Set;
 @Controller
 public class BaseController {
 
-    // Không dùng trực tiếp repository ở controller mà tạo service ra
     @Autowired
     private UserRepository userRepository;
 

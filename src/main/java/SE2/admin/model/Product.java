@@ -2,6 +2,7 @@ package SE2.admin.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 //Dùng chung cả kể khac man hinh (admin,user,....)
 @Entity
@@ -21,6 +22,9 @@ public class Product {
 //    private int categoryId;
     private String manufacturer;
     private int quantity;
+
+    @ManyToMany(mappedBy = "productList")
+    private List<Cart> cartList;
 //
     @ManyToOne
     private Category category;

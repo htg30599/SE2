@@ -11,8 +11,9 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "cart_id")
-    private int cartId;
+    @OneToOne
+    @JoinColumn(name="cart_id")
+    private Cart cart;
     @Column(name= "customer_name")
     private String customerName;
     @Column(name="phone_number")
@@ -40,12 +41,12 @@ public class Order {
         this.id = id;
     }
 
-    public int getCartId() {
-        return cartId;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getCustomerName() {
