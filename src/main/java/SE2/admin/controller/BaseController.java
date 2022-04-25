@@ -65,6 +65,10 @@ public class BaseController {
 
         return "register_success";
     }
+    @GetMapping("/homepage")
+    public String homepage(){
+        return "homepage";
+    }
 
     @GetMapping("/checkout")
     public String showCheckout(Model model) {

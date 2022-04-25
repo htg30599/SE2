@@ -29,17 +29,27 @@
                         <ul class="dropdown-menu">
                             <li><a href="cart.html">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
-<<<<<<< HEAD
                             <li><a href="profile.html">My Account</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
                             <li><a href="shop-detail.html">Shop Detail</a></li>
-=======
+
                             <li><a href="my-account.html">My Account</a></li>
->>>>>>> 7d540d7eb6b2ce1f1993c6ce4390872a1c3318bc
+
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/register}">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                    <li class ="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Account</a>
+                        <ul class="dropdown-menu">
+                            <li><a  type="submit" th:href="@{/register}">Register</a></li>
+                            <li><a  type="submit" th:href="@{/login}">Login</a></li>
+                            <li><a href="javascript: document.signup_form.submit()" role="menuitem"></a>
+                                <form name="signup_form" th:action="@{/logout}" method="post" >
+                                    <input type="submit" value="Sign Out"/>
+                                </form></li>
+                        </ul>
+                    </li>
+
+
 <!--                    <li class="nav-item"><a class="nav-link" href="#about">Our Service</a></li>-->
 <!--                    <li class="nav-item"><a class="nav-link" href="#about">Contact Us</a></li>-->
                 </ul>
