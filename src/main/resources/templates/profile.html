@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--    &lt;!&ndash;[if lt IE 9]>-->
+    <!--      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+    <!--      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--    <![endif]&ndash;&gt;-->
+
+    <title>Your profile</title>
+</head>
+<body>
+<div class="container col-md-5 mt-4">
+    <div class="card">
+        <div class="card-body">
+            <form th:action="'/profile/save'" th:object="${user}" method="post">
+                <h2 class="text-center text-primary" th:text="'Profile '+${user.role.name}"></h2>
+                <fieldset class="form-group">
+                    <label>User Name: </label>
+                    <input class="form-control" type="text" th:field="*{userName}" required minlength="2"
+                           maxlength="20">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Phone Number: </label>
+                    <input class="form-control" type="text" th:field="*{phoneNumber}" required minlength="2"
+                           maxlength="20"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>E-mail: </label>
+                    <input type="email" th:field="*{email}" class="form-control" required/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Address: </label>
+                    <input type="text" th:field="*{address}" class="form-control" required minlength="2"
+                           maxlength="20"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label class="col-4 col-form-label">Gender: </label>
+                    <div class="col-8">
+                        <input type="radio" th:field="*{gender}" value="1"/>Male
+                        <h1></h1>
+                        <input type="radio" th:field="*{gender}" value="0"/>Female
+                    </div>
+                </fieldset>
+                <input class="id" hidden th:field="*{id}">
+                <input hidden th:field="*{role}">
+                <input class="password-check" hidden th:field="*{password}">
+                <h1></h1>
+                <div class="col text-center mt-3 update-btn">
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="button" href="/" class="btn btn-dark">Cancel</button>
+                </div>
+            </form>
+            <fieldset class="form-group">
+                <a class="password-change" onclick="changePw()">Change your password?</a>
+                <form method="post" th:action="'/profile/checkPass/{id}'" th:object="${changePw}">
+                    <div class="password-box" style="display: none">
+                        <p class="error-alert" style="color: red"></p>
+                        <label>Old password: </label>
+                        <input type="password" name="password" class="form-control old-pass" required
+                               minlength="6"
+                               maxlength="10"/>
+                        <label>New password: </label>
+                        <input type="password" name="newPassword" class="form-control new-pass" required
+                               minlength="6"
+                               maxlength="10"/>
+                        <label>Confirm your new password: </label>
+                        <input type="password" name="confirmPassword" class="form-control confirm-pass" required
+                               minlength="6"
+                               maxlength="10"/>
+                        <div class="col text-center mt-3">
+                            <button type="submit" class="btn btn-info password-confirm-btn">Confirm</button>
+                            <button type="button" href="/" class="btn btn-danger password-cancel-btn">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<!-- ALL JS FILES -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- ALL PLUGINS -->
+<script src="js/jquery.superslides.min.js"></script>
+<script src="js/bootstrap-select.js"></script>
+<script src="js/inewsticker.js"></script>
+<script src="js/bootsnav.js."></script>
+<script src="js/images-loded.min.js"></script>
+<script src="js/isotope.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/baguetteBox.min.js"></script>
+<script src="js/form-validator.min.js"></script>
+<script src="js/contact-form-script.js"></script>
+<script src="js/custom.js"></script>
+<script>
+    const passwordBox = document.querySelector(".password-box")
+    const updateBtns = document.querySelector(".update-btn")
+    const confirm = document.querySelector(".password-confirm-btn")
+    const cancel = document.querySelector(".password-cancel-btn")
+    const newPass = document.querySelector(".old-pass")
+    const oldPass = document.querySelector(".new-pass")
+    const confirmPass = document.querySelector(".confirm-pass")
+    const err = document.querySelector(".error-alert")
+    const pw = document.querySelector(".password-check")
+
+    function changePw() {
+        passwordBox.style.display = "block"
+        updateBtns.style.display="none"
+        document.querySelector(".password-change").textContent = "Change your password:"
+        confirm.addEventListener("click", checkPass)
+    }
+
+    function checkPass() {
+        // if (oldPass.value == "")
+        //     err.textContent = "Wrong password!"
+        // else
+        fetch('http://localhost:8086/profile/'+document.querySelector(".id"), {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:
+                JSON.stringify(checkPass)
+        }).then((response)=>{
+            if (response.status === 200) {
+                return response.json();
+            }
+        }).then((isPwCorrect)=>{
+            if (isPwCorrect)
+                err.textContent = "Wrong password! Try again!"
+            if (newPass.value !== confirmPass.value)
+                err.textContent = "Invalid!"
+            else {
+                console.log(newPass.value+"===="+confirmPass.value)
+                alert("OK!")}
+        })
+    }
+</script>
+
+</body>
+</html>

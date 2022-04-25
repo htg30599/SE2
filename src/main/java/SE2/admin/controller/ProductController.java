@@ -70,7 +70,10 @@ public class ProductController {
     @RequestMapping(value = "/save")
     public String saveUpdate(
             @RequestParam(value = "id", required = false) Long id,
-            @Valid Product product, BindingResult result) {
+            @Valid Product product, BindingResult result,
+            Model model) {
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         if (result.hasErrors()) {
             if (id == null)
                 return "productAdd";
@@ -87,21 +90,21 @@ public class ProductController {
             Model model,
             @RequestParam(value = "name") String name) {
         List<Product> products = productRepository.findByNameContaining(name);
-        model.addAttribute("products", products);
+        model.addAttribute("productList", products);
         return "productList";
     }
 
     @RequestMapping("/sort/asc")
     public String sortProduct(Model model) {
         List<Product> products = productRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
-        model.addAttribute("products", products);
+        model.addAttribute("productList", products);
         return "productList";
     }
 
     @RequestMapping("/sort/desc")
     public String sortProductDesc(Model model) {
         List<Product> products = productRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
-        model.addAttribute("products", products);
+        model.addAttribute("productList", products);
         return "productList";
     }
 

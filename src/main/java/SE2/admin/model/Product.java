@@ -2,7 +2,9 @@ package SE2.admin.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
+//Dùng chung cả kể khac man hinh (admin,user,....)
 @Entity
 public class Product {
     @Id
@@ -14,16 +16,16 @@ public class Product {
     private String shortDesc;
     @NotEmpty(message = "Product image cannot be empty!")
     private String images;
-    @NotEmpty(message = "Product price cannot be empty!")
     private int price;
 //    private int promotionId;
 //    @NotEmpty(message = "Product category cannot be empty!")
 //    private int categoryId;
-    @NotEmpty(message = "Product manufacturer cannot be empty!")
     private String manufacturer;
-    @NotEmpty(message = "Product quantity cannot be empty!")
     private int quantity;
 
+    @ManyToMany(mappedBy = "productList")
+    private List<Cart> cartList;
+//
     @ManyToOne
     private Category category;
 

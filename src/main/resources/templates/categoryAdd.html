@@ -30,57 +30,18 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
 
-    <!--    &lt;!&ndash;[if lt IE 9]>-->
-    <!--      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-    <!--      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
-    <!--    <![endif]&ndash;&gt;-->
-
 </head>
 
 <body>
 <div class="container col-md-5 mt-4">
-    <div class="container justify-content-between">
-        <div><h1/></div>
-        <a class="btn btn-info"  th:href="'/admin/product/list'">
-            ALL LIST
-        </a>
-    </div>
     <div class="card">
         <div class="card-body">
-            <form th:action="'save'" th:object="${product}" method="post">
-                <h2 class="text-center text-primary">Add product</h2>
+                <h2 class="text-center text-primary">Add category</h2>
+            <form th:action="'save'" th:object="${category}" method="post">
                 <fieldset class="form-group">
-                    <label>Product name </label>
+                    <label>Category name </label>
                     <input class="form-control" type="text" th:field="*{name}">
                     <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Short description </label>
-                    <input class="form-control" type="text" th:field="*{shortDesc}">
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Product image </label>
-                    <input class="form-control" type="text" accept="image/x-png,image/gif,image/jpeg" th:field="*{images}">
-                    <p style="color: red" th:if="${#fields.hasErrors('images')}" th:errorclass="error" th:errors="*{images}" />
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Price </label>
-                    <input class="form-control" type="text" th:field="*{price}">
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Category</label>
-                    <select class="form-select" th:field="*{category}">
-                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
-                    </select>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Manufacturer</label>
-                    <input class="form-control" type="text" th:field="*{manufacturer}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{manufacturer}" />
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>quantity</label>
-                    <input class="form-control" type="text" th:field="*{quantity}">
                 </fieldset>
                 <div class="col text-center mt-3">
                     <button type="submit" class="btn btn-success">ADD</button>

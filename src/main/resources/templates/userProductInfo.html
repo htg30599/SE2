@@ -38,69 +38,37 @@
 
 <body>
 <div class="container col-md-5 mt-4">
-    <a th:href="'/adminHomepage'" class="btn mt-3 mb-3 btn-info">
-        HOME
-    </a>
     <div class="text text-primary justify-content-between text-center">
-        <h2 class="text text-primary justify-content-between text-center">PRODUCT LIST</h2>
-        <a th:href="'/admin/product/add'" class="btn btn-success mt-3 mb-3">
-            ADD
-        </a>
+        <h2 class="text text-primary justify-content-between text-center">PRODUCT </h2>
     </div>
     <div class="container col-md text-center">
-        <div class="container justify-content-between">
-            <form action="/admin/product/search">
-                <input type="search" placeholder="Search by name" name="name"/>
-            </form>
-        </div>
         <div class="container row justify-content-md-center">
             <table class="table table-striped table-hover ">
                 <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Product
-                        <a th:href="'/admin/product/sort/asc'" class="text-decoration-none">
-                            <img th:src="@{/images/caret-arrow-up.png}" width="20">
-                        </a>
-                        <a th:href="'/admin/product/sort/desc'" class="text-decoration-none">
-                            <img th:src="@{/images/caret-down.png}" width="20">
-                        </a>
-                    </th>
+                    <th>Product</th>
                     <th>Price</th>
                     <th>Category</th>
                     <th>Manufacturer</th>
                     <th>Quantity</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="product : ${productList}">
-                    <td th:text="${product.id}"/>
-                    <td>
-                        <a th:href="'/admin/product/' + ${product.id}">
-                            <img th:src="${product.images}" width="130" height="170">
-                        </a>
+                <!--                <tr th:each="product : ${products}">-->
+                <td hidden th:text="${product.id}"/>
+                <td>
+                        <img th:src="${product.images}" width="130" height="170">
 
-                        <h3 th:text="${product.name}"/>
-                        <h6 th:text="${product.shortDesc}"/>
-                    </td>
-                    <td th:text="${product.price}"/>
-                    <td th:each="cate:${product.category}">
-                        <p th:text="${cate.name}"/>
-                    </td>
-                    <td th:text="${product.manufacturer}"/>
-                    <td th:text="${product.quantity}"/>
-                    <td>
-                        <a class="btn btn-warning" th:href="'/admin/product/update/' + ${product.id}">
-                            UPDATE
-                        </a>
-                        <div><h1/></div>
-                        <a class="btn btn-danger" th:href="'/admin/product/delete/' + ${product.id}"
-                           onclick="return confirm('Do you want to delete this product ?');">
-                            DELETE
-                        </a>
-                    </td>
-                </tr>
+                    <h3><a th:text="${product.name}"/></h3>
+                    <h6 th:text="${product.shortDesc}"/>
+                </td>
+                <td th:text="${product.price}+' VND'"/>
+                <td th:each="cate:${product.category}">
+                    <p th:text="${cate.name}"/>
+                </td>
+                <td th:text="${product.manufacturer}"/>
+                <td th:text="${product.quantity}"/>
+                <!--                </tr>-->
                 </tbody>
             </table>
         </div>

@@ -58,7 +58,6 @@
                     <th>ID</th>
                     <th>Product</th>
                     <th>Price</th>
-                    <th>Promotion</th>
                     <th>Category</th>
                     <th>Manufacturer</th>
                     <th>Quantity</th>
@@ -76,7 +75,7 @@
                         <h3><a th:text="${product.name}"/></h3>
                         <h6 th:text="${product.shortDesc}"/>
                     </td>
-                    <td th:text="${product.price}"/>
+                    <td th:text="${product.price}+' VND'"/>
                     <td th:each="cate:${product.category}">
                         <p th:text="${cate.name}"/>
                     </td>

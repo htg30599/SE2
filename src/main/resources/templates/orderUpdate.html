@@ -41,49 +41,67 @@
 <div class="container col-md-5 mt-4">
     <div class="container justify-content-between">
         <div><h1/></div>
-        <a class="btn btn-info"  th:href="'/admin/product/list'">
+        <a class="btn btn-info"  th:href="'/admin/order/list'">
             ALL LIST
         </a>
     </div>
     <div class="card">
         <div class="card-body">
-            <form th:action="'/admin/product/save'" th:object="${product}" method="post">
-                <h2 class="text-center text-primary">Edit product</h2>
+            <form th:action="'/admin/order/save'" th:object="${order}" method="post">
+                <h2 class="text-center text-primary">Edit order</h2>
+
                 <fieldset class="form-group">
-                    <label>Product name </label>
-                    <input class="form-control" type="text" th:field="*{name}">
-                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
+                    <label>Cart ID </label>
+                    <input class="form-control" type="text" th:field="*{cartId}">
+                    <p style="color: red" th:if="${#fields.hasErrors('cartId')}" th:errorclass="error" th:errors="*{cartId}" />
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Customer Name </label>
+                    <input class="form-control" type="text" th:field="*{customerName}">
+                    <p style="color: red" th:if="${#fields.hasErrors('customerName')}" th:errorclass="error" th:errors="*{customerName}"></p>
+
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Short description </label>
-                    <input class="form-control" type="text" th:field="*{shortDesc}">
+                    <label>Phone Number</label>
+                    <input class="form-control" type="text" th:field="*{phoneNumber}">
+                    <p style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errorclass="error" th:errors="*{phoneNumber}" />
+
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Product image </label>
-                    <input class="form-control" type="text" accept="image/x-png,image/gif,image/jpeg" th:field="*{images}">
-                    <p style="color: red" th:if="${#fields.hasErrors('images')}" th:errorclass="error" th:errors="*{images}" />
+                    <label>Place of Receipt</label>
+                    <input class="form-control" type="text" th:field="*{placeOfReceipt}">
+                    <p style="color: red" th:if="${#fields.hasErrors('placeOfReceipt')}" th:errorclass="error" th:errors="*{placeOfReceipt}" />
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Price </label>
-                    <input class="form-control" type="text" th:field="*{price}">
-                    <p style="color: red" th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
+                    <label>note</label>
+                    <input class="form-control" type="text" th:field="*{note}">
+                    <p style="color: red" th:if="${#fields.hasErrors('note')}" th:errorclass="error" th:errors="*{note}" />
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Category</label>
-                    <select class="form-select" th:field="*{category}">
-                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
-                        <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errorclass="error" th:errors="*{category}" />
-                    </select>
+                    <label>Payment Method</label>
+                    <input class="form-control" type="text" th:field="*{paymentMethod}">
+                    <p style="color: red" th:if="${#fields.hasErrors('paymentMethod')}" th:errorclass="error" th:errors="*{paymentMethod}" />
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Manufacturer</label>
-                    <input class="form-control" type="text" th:field="*{manufacturer}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{manufacturer}" />
+                    <label>Total Price</label>
+                    <input class="form-control" type="text" th:field="*{totalPrice}">
+                    <p style="color: red" th:if="${#fields.hasErrors('totalPrice')}" th:errorclass="error" th:errors="*{totalPrice}" />
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>quantity</label>
-                    <input class="form-control" type="text" th:field="*{quantity}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{quantity}" />
+                    <label>Ship Price</label>
+                    <input class="form-control" type="text" th:field="*{shipPrice}">
+                    <p style="color: red" th:if="${#fields.hasErrors('shipPrice')}" th:errorclass="error" th:errors="*{shipPrice}" />
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Create Date</label>
+                    <input class="form-control" type="text" th:field="*{createDate}">
+                    <p style="color: red" th:if="${#fields.hasErrors('createDate')}" th:errorclass="error" th:errors="*{createDate}" />
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Creator Id</label>
+                    <input class="form-control" type="text" th:field="*{creatorId}">
+                    <p style="color: red" th:if="${#fields.hasErrors('creatorId')}" th:errorclass="error" th:errors="*{creatorId}" />
                 </fieldset>
                 <input hidden th:field="*{id}">
                 <div class="col text-center mt-3">

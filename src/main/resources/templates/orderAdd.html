@@ -41,53 +41,64 @@
 <div class="container col-md-5 mt-4">
     <div class="container justify-content-between">
         <div><h1/></div>
-        <a class="btn btn-info"  th:href="'/admin/product/list'">
+        <a class="btn btn-info"  th:href="'/admin/order/list'">
             ALL LIST
         </a>
     </div>
     <div class="card">
         <div class="card-body">
-            <form th:action="'/admin/product/save'" th:object="${product}" method="post">
-                <h2 class="text-center text-primary">Edit product</h2>
+            <form th:action="'save'" th:object="${order}" method="post">
+                <h2 class="text-center text-primary">Add order</h2>
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 7d540d7eb6b2ce1f1993c6ce4390872a1c3318bc
                 <fieldset class="form-group">
-                    <label>Product name </label>
-                    <input class="form-control" type="text" th:field="*{name}">
-                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
+                    <label>Cart ID </label>
+                    <input class="form-control" type="text" th:field="*{cartId}">
+                    <p style="color: red" th:if="${#fields.hasErrors('cartId')}" th:errorclass="error" th:errors="*{cartId}"></p>
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Short description </label>
-                    <input class="form-control" type="text" th:field="*{shortDesc}">
+                    <label>Customer Name </label>
+                    <input class="form-control" type="text" th:field="*{customerName}">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Product image </label>
-                    <input class="form-control" type="text" accept="image/x-png,image/gif,image/jpeg" th:field="*{images}">
-                    <p style="color: red" th:if="${#fields.hasErrors('images')}" th:errorclass="error" th:errors="*{images}" />
+                    <label>Phone Number </label>
+                    <input class="form-control" type="text" th:field="*{phoneNumber}">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Place of Receipt</label>
+                    <input class="form-control" type="text" th:field="*{placeOfReceipt}">
+                    <p style="color: red" th:if="${#fields.hasErrors('placeOfReceipt')}" th:errorclass="error" th:errors="*{manufacturer}" />
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Price </label>
-                    <input class="form-control" type="text" th:field="*{price}">
-                    <p style="color: red" th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
+                    <label>Note</label>
+                    <input class="form-control" type="text" th:field="*{note}">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Category</label>
-                    <select class="form-select" th:field="*{category}">
-                        <option th:each="cate: ${categories}" th:value="${cate.id}" th:text="${cate.name}"/>
-                        <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errorclass="error" th:errors="*{category}" />
-                    </select>
+                    <label>Payment Method</label>
+                    <input class="form-control" type="text" th:field="*{paymentMethod}">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Manufacturer</label>
-                    <input class="form-control" type="text" th:field="*{manufacturer}">
-                    <p style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="error" th:errors="*{manufacturer}" />
+                    <label>Total Price</label>
+                    <input class="form-control" type="text" th:field="*{totalPrice}">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>quantity</label>
-                    <input class="form-control" type="text" th:field="*{quantity}">
-                    <p style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{quantity}" />
+                    <label>Ship Price</label>
+                    <input class="form-control" type="text" th:field="*{shipPrice}">
                 </fieldset>
-                <input hidden th:field="*{id}">
+                <fieldset class="form-group">
+                    <label>Create Dat</label>
+                    <input class="form-control" type="text" th:field="*{createDate}">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Creator ID</label>
+                    <input class="form-control" type="text" th:field="*{creatorId}">
+                </fieldset>
                 <div class="col text-center mt-3">
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="submit" class="btn btn-success">ADD</button>
                 </div>
             </form>
         </div>
@@ -112,7 +123,6 @@
 <script src="js/form-validator.min.js"></script>
 <script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
-
 </body>
 
 </html>
