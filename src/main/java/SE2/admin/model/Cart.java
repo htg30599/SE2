@@ -84,4 +84,12 @@ public class Cart {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 }

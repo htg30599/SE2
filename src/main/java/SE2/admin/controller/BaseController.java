@@ -2,12 +2,11 @@
 package SE2.admin.controller;
 
 import SE2.admin.model.*;
-import SE2.admin.repository.CategoryRepository;
-import SE2.admin.repository.ProductRepository;
-import SE2.admin.repository.RoleRepository;
-import SE2.admin.repository.UserRepository;
+import SE2.admin.repository.*;
 
+import SE2.admin.service.CustomerUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +33,9 @@ public class BaseController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
 
 //    @GetMapping("/Home")
@@ -127,6 +129,19 @@ public class BaseController {
         Product product = productRepository.getById(id);
         model.addAttribute("product", product);
         return "userProductInfo";
+    }
+
+    @RequestMapping(value = "/addToCart")
+    public String addProduct(
+            @Valid Product product, BindingResult result, Model model) {
+        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email=userDetails.getUserName();
+        Cart cart = cartRepository.findByUserEmail(email);
+        List<Product> products=cart.getProductList();
+        products.add(product);
+        cart.setProductList(products);
+        model.addAttribute("cart", cart);
+        return "cartAdd";
     }
   /*  @RequestMapping(value = "/login")
     public String loginTemplate() {

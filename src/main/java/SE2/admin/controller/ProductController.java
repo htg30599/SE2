@@ -1,11 +1,15 @@
 package SE2.admin.controller;
 
+import SE2.admin.model.Cart;
 import SE2.admin.model.Category;
+import SE2.admin.repository.CartRepository;
 import SE2.admin.repository.CategoryRepository;
 import SE2.admin.repository.ProductRepository;
 import SE2.admin.model.Product;
+import SE2.admin.service.CustomerUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,6 +25,10 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    CartRepository cartRepository;
+
     @Autowired
     CategoryRepository categoryRepository;
 
