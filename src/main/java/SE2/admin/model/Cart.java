@@ -16,7 +16,6 @@ public class Cart {
     private String userEmail;
 
 
-
     @OneToOne
     @JoinColumn(name="order_id")
     private Order order;
@@ -43,6 +42,13 @@ public class Cart {
         this.id = id;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
 
     public Integer getStatus() {
