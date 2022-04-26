@@ -1,10 +1,17 @@
 package SE2.admin.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name="carts")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 
     @Id
@@ -16,13 +23,10 @@ public class Cart {
     private String userEmail;
 
 
-
     @OneToOne
     @JoinColumn(name="order_id")
     private Order order;
 
-    @Column(name="quantity")
-    private Integer quantity;
 
     @Column(name="total_price")
     private Integer totalPrice;
@@ -31,65 +35,14 @@ public class Cart {
     private Integer status;
 
 
-    @ManyToMany
-    @JoinTable(name="product_cart", joinColumns = @JoinColumn(name="cart_id"), inverseJoinColumns = @JoinColumn(name="product_id"))
-    private List<Product> productList;
+    @OneToMany(mappedBy = "cart")
+    private List<EntityProduct> entityProducts;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Integer getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
+    public Cart(String userEmail, Order order, Integer totalPrice, Integer status, List<EntityProduct> entityProducts) {
         this.userEmail = userEmail;
+        this.order = order;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.entityProducts = entityProducts;
     }
 }
