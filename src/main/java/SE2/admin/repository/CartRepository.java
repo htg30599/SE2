@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface CartRepository  extends JpaRepository<Category, Long> {
+public interface CartRepository  extends JpaRepository<Cart, Long> {
     Cart findByUserEmail(String email);
 }

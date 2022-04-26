@@ -35,7 +35,7 @@ public class BaseController {
     private ProductRepository productRepository;
 
     @Autowired
-    private CartRepository cartRepository;
+    CartRepository cartRepository;
 
 
 //    @GetMapping("/Home")
@@ -136,10 +136,18 @@ public class BaseController {
             @Valid Product product, BindingResult result, Model model) {
         CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email=userDetails.getUserName();
-        Cart cart = cartRepository.findByUserEmail(email);
+        Cart cart;
+//        if(cartRepository.findByUserEmail(email).getStatus()==0){
+        cart = cartRepository.findByUserEmail(email);
         List<Product> products=cart.getProductList();
         products.add(product);
         cart.setProductList(products);
+//    }
+//        else{
+//            cart = new Cart();
+//            cart.setUserEmail(email);
+//            cart.
+//        }
         model.addAttribute("cart", cart);
         return "cartAdd";
     }
