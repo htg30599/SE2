@@ -14,24 +14,20 @@ public class Order {
     @OneToOne
     @JoinColumn(name="cart_id")
     private Cart cart;
-    @Column(name= "customer_name")
-    private String customerName;
-    @Column(name="phone_number")
-    private String phoneNumber;
     @Column(name="place_of_receipt")
     private String placeOfReceipt;
     @Column(name="note")
     private String note;
-    @Column(name="payment_method")
-    private String paymentMethod;
+//    @Column(name="payment_method")
+//    private String paymentMethod;
     @Column(name="total_price")
     private int totalPrice;
-    @Column(name="ship_price")
-    private int shipPrice;
+//    @Column(name="ship_price")
+//    private int shipPrice;
     @Column(name="create_date")
     private String createDate;
-    @Column(name="create_id")
-    private int creatorId;
+//    @Column(name="create_id")
+//    private int creatorId;
 
     public Long getId() {
         return id;
@@ -48,22 +44,14 @@ public class Order {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+//
+//    public User getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(User customer) {
+//        this.customer = customer;
+//    }
 
     public String getPlaceOfReceipt() {
         return placeOfReceipt;
@@ -81,13 +69,13 @@ public class Order {
         this.note = note;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
+//    public String getPaymentMethod() {
+//        return paymentMethod;
+//    }
+//
+//    public void setPaymentMethod(String paymentMethod) {
+//        this.paymentMethod = paymentMethod;
+//    }
 
     public int getTotalPrice() {
         return totalPrice;
@@ -99,13 +87,13 @@ public class Order {
 
 
 
-    public int getShipPrice() {
-        return shipPrice;
-    }
-
-    public void setShipPrice(int shipPrice) {
-        this.shipPrice = shipPrice;
-    }
+//    public int getShipPrice() {
+//        return shipPrice;
+//    }
+//
+//    public void setShipPrice(int shipPrice) {
+//        this.shipPrice = shipPrice;
+//    }
 
     public String getCreateDate() {
         return createDate;
@@ -115,11 +103,11 @@ public class Order {
         this.createDate = createDate;
     }
 
-    public int getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(int creatorId) {
-        this.creatorId = creatorId;
-    }
+//    public int getCreatorId() {
+//        return creatorId;
+//    }
+//
+//    public void setCreatorId(int creatorId) {
+//        this.creatorId = creatorId;
+//    }
 }

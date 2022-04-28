@@ -1,7 +1,9 @@
 package SE2.admin.controller;
 
+import SE2.admin.model.Order;
 import SE2.admin.model.Role;
 import SE2.admin.model.User;
+import SE2.admin.repository.OrderRepository;
 import SE2.admin.repository.RoleRepository;
 import SE2.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
     @RequestMapping(value = "/list")
     public String showProductList(Model model) {
@@ -72,6 +76,8 @@ public class UserController {
         }
         user.setId(id);
         userRepository.save(user);
+        Order order = new Order();
+        orderRepository.save(order);
         return "redirect:/admin/user/list";
     }
 

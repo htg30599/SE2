@@ -14,9 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Controller
@@ -37,6 +35,8 @@ public class BaseController {
     @Autowired
     CartRepository cartRepository;
 
+    @Autowired
+    EntityProductsRepository entityProductsRepository;
 
 //    @GetMapping("/Home")
 //    public String index() {
@@ -66,8 +66,9 @@ public class BaseController {
 
         return "register_success";
     }
+
     @GetMapping("/homepage")
-    public String homepage(){
+    public String homepage() {
         return "homepage";
     }
 
@@ -88,9 +89,9 @@ public class BaseController {
 
     @RequestMapping(name = "/profile/checkPass/{id}", method = RequestMethod.POST)
     public String isPasswordCorrect(@PathVariable(value = "id", required = false) Long id,
-                                     @RequestBody ChangePw changePw,
-                                     @Valid User user,
-                                     Model model) {
+                                    @RequestBody ChangePw changePw,
+                                    @Valid User user,
+                                    Model model) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String enteredPassword = encoder.encode(changePw.getPassword());
         if (enteredPassword.equals(user.getPassword()) && changePw.getNewPassword().equals(changePw.getConfirmPassword())) {
@@ -131,42 +132,77 @@ public class BaseController {
         return "userProductInfo";
     }
 
-    @RequestMapping(value = "/addToCart")
-    public String addProduct(
-            @Valid Product product, BindingResult result, Model model) {
-        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email=userDetails.getUserName();
-        Cart cart;
-//        if(cartRepository.findByUserEmail(email).getStatus()==0){
-        cart = cartRepository.findByUserEmail(email);
-        List<Product> products=cart.getProductList();
-        products.add(product);
-        cart.setProductList(products);
+//    @RequestMapping("/shop/addToCart/{id}")
+//    public String showCart(
+//            @PathVariable(value = "id") Long id, Model model) {
+//        Product product = productRepository.getById(id);
+//        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String email = userDetails.getUserName();
+//        Cart cart = cartRepository.findByUserEmailAndStatusIs(email, 0);
+//        List<EntityProduct> entityProducts = entityProductsRepository.findAllByCart(cart);
+//        entityProducts.add(new EntityProduct(product, cart, 1));
+//        model.addAttribute("product",product);
+//        model.addAttribute("entityProducts", entityProducts);
+//        model.addAttribute("cart", cart);
+//        return "cart";
 //    }
-//        else{
-//            cart = new Cart();
-//            cart.setUserEmail(email);
-//            cart.
-//        }
+
+    @RequestMapping(value = "/shop/addToCart/{id}")
+    public String addProduct(
+            @PathVariable(value = "id") Long id, Model model) {
+
+        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Product product = productRepository.getById(id);
+        String email = userDetails.getUserName();
+        Cart cart = cartRepository.findByUserEmailAndStatusIs(email, 0);
+        List<EntityProduct> entityProducts;
+
+        //create new cart if it's null
+        if (cart == null) {
+            cart = new Cart(email, product.getPrice(), 0);
+            cartRepository.save(cart);
+            entityProducts = new ArrayList<>();
+            EntityProduct entityProduct = new EntityProduct(product, cart, 1);
+            entityProducts.add(entityProduct);
+            entityProductsRepository.save(entityProduct);
+        } else {
+            //calculate new total Price
+            cart.setTotalPrice(cart.getTotalPrice() + product.getPrice());
+            entityProducts = entityProductsRepository.findAllByCart(cart);
+            EntityProduct entityProduct = new EntityProduct(product, cart, 1);
+            entityProducts.add(entityProduct);
+            entityProductsRepository.save(entityProduct);
+        }
+        //create ClientForm to save user input
+        ClientForm clientForm = new ClientForm(entityProducts);
+
+        //send categories to header
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("clientForm", clientForm);
         model.addAttribute("cart", cart);
-        return "cartAdd";
-    }
-  /*  @RequestMapping(value = "/login")
-    public String loginTemplate() {
-        return "login";
+        return "cart";
     }
 
-    @RequestMapping(value = "/")
-    public String AdminHomepage() {
-        return "AdminHomepage";
-    }*/
+    @RequestMapping(value = "/shop/addToCart/save", method = RequestMethod.POST)
+    public String saveCart(
+            @ModelAttribute ClientForm clientForm,
+            Model model) {
+        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<EntityProduct> entityProducts = clientForm.getEntityProducts();
 
-    /*@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(String userName) {
-        CustomerUserDetailsService service = new CustomerUserDetailsService();
-        service.loadUserByUsername(userName);
-        *//*if (repo.findByEmail(userName).getRoles().getId() == 1)*//*
-            return "redirect:/";*/
+        Cart cart = cartRepository.findByUserEmailAndStatusIs(userDetails.getUserName(), 0);
+        cart.setTotalPrice(0);
+        if (entityProducts != null) {
+            for (int i = 0; i < entityProducts.size(); i++) {
+                entityProductsRepository.save(entityProducts.get(i));
+                cart.setTotalPrice(cart.getTotalPrice() + entityProducts.get(i).getQuantity() * entityProducts.get(i).getProduct().getPrice());
+            }
+            cartRepository.save(cart);
+        }
+        model.addAttribute("clientForm", clientForm);
+        model.addAttribute("cart", cart);
+        return "checkout";
+    }
 
 }
 

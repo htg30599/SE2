@@ -45,7 +45,7 @@ public class CartController {
 
         Cart cart = cartRepository.findByUserEmailAndStatusIs(userEmail, 0);
         model.addAttribute("cart", Optional.ofNullable(cart).orElse(new Cart()));
-        return "cartList";
+        return "cart";
     }
 
 
@@ -61,7 +61,7 @@ public class CartController {
         if (!productOpt.isPresent()) {
             model.addAttribute("err", "Product is not found");
             //Return HomePage to show err TODO
-            return "";
+            return "errPage";
         }
 
         Product product = productOpt.get();
@@ -96,14 +96,15 @@ public class CartController {
 
         } else {
             cart.setUserEmail(userEmail);
-            cart.setEntityProducts(Collections.singletonList(newProductCart));
+//            cart.setEntityProducts(Collections.singletonList(newProductCart));
             cart.setStatus(0);
         }
 
         cart.setTotalPrice(totalPrice);
         cartRepository.save(cart);
+        model.addAttribute("newProductCart", newProductCart);
         model.addAttribute("cart", cart);
-        return "cartUpdate";
+        return "cart";
     }
 
 

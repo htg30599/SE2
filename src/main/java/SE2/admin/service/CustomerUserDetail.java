@@ -57,6 +57,6 @@ public class CustomerUserDetail implements UserDetails {
     }
 
     public String getUserName(){
-        return user.getUserName();
+        return user.getEmail();
     }
 }

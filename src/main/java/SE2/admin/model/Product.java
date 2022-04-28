@@ -23,8 +23,8 @@ public class Product {
     private String manufacturer;
     private int quantity;
 
-    @ManyToMany(mappedBy = "productList")
-    private List<Cart> cartList;
+//    @ManyToMany(mappedBy = "productList")
+//    private List<Cart> cartList;
 //
     @ManyToOne
     private Category category;

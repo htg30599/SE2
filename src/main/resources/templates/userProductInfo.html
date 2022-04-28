@@ -55,9 +55,8 @@
                 </thead>
                 <tbody>
                 <!--                <tr th:each="product : ${products}">-->
-                <td hidden th:text="${product.id}"/>
                 <td>
-                        <img th:src="${product.images}" width="130" height="170">
+                    <img th:src="${product.images}" width="130" height="170">
 
                     <h3><a th:text="${product.name}"/></h3>
                     <h6 th:text="${product.shortDesc}"/>
@@ -71,6 +70,10 @@
                 <!--                </tr>-->
                 </tbody>
             </table>
+            <button class="btn-info"><a class="cart" th:href="'/shop/addToCart/'+${product.id}" style="text-decoration: none">Add to Cart</a></button>
+            <h1></h1>
+            <button class="btn-danger"><a class="cart" href="/" style="text-decoration: none">Back to Homepage</a></button>
+
         </div>
     </div>
 </div>

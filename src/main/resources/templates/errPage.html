@@ -41,6 +41,18 @@
 
 <div th:replace="header :: header "></div>
 
+<!-- Start Top Search -->
+<div class="top-search">
+    <div class="container">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search">
+            <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+        </div>
+    </div>
+</div>
+<!-- End Top Search -->
+
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -63,40 +75,13 @@
         <div class="row">
             <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
                 <div class="right-product-box">
-                    <div class="row product-categorie-box">
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                <div class="row">
-                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4" th:each="product:${products}">
-                                    <div class="products-single fix">
-                                        <div class="box-img-hover">
-                                            <img th:src="${product.images}" class="img-fluid" alt="Image" style="height: 350px;width: 270px; padding: 20px 10px">
-                                            <div class="mask-icon">
-                                                <ul>
-                                                    <li><a th:href="'/product/'+${product.id}" data-toggle="tooltip" data-placement="right"
-                                                           title="View"><i class="fas fa-eye"></i></a></li>
-                                                </ul>
-<!--                                                <form th:action="" method="post">-->
-<!--                                                    <input hidden th:field="*{id}">-->
-                                                <a class="cart" th:href="'/shop/addToCart/'+${product.id}">Add to Cart</a>
-<!--                                                </form>-->
-                                            </div>
-                                        </div>
-                                        <div class="why-text">
-                                            <h1 th:text="${product.name}"/>
-                                            <h4 th:text="${product.shortDesc}"/>
-                                            <h5 th:text="${product.price}"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h1 th:text="${err}"></h1>
+                    <div></div>
+                    <a th:href="/" th:text="Back"/>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- End Shop Page -->
 
@@ -217,7 +202,6 @@
 <script src="js/form-validator.min.js"></script>
 <script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
-
 </body>
 
 </html>

@@ -22,27 +22,59 @@ public class Cart {
     @Column(name="user_email")
     private String userEmail;
 
-
-    @OneToOne
-    @JoinColumn(name="order_id")
-    private Order order;
-
-
     @Column(name="total_price")
     private Integer totalPrice;
 
     @Column(name="status")
     private Integer status;
 
+//    @OneToMany
+//    private List<EntityProduct> entityProducts;
 
-    @OneToMany(mappedBy = "cart")
-    private List<EntityProduct> entityProducts;
-
-    public Cart(String userEmail, Order order, Integer totalPrice, Integer status, List<EntityProduct> entityProducts) {
+    public Cart(String userEmail, Integer totalPrice, Integer status) {
         this.userEmail = userEmail;
-        this.order = order;
+//        this.entityProducts = entityProducts;
         this.totalPrice = totalPrice;
         this.status = status;
-        this.entityProducts = entityProducts;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+//    public List<EntityProduct> getEntityProducts() {
+//        return entityProducts;
+//    }
+//
+//    public void setEntityProducts(List<EntityProduct> entityProducts) {
+//        this.entityProducts = entityProducts;
+//    }
 }
