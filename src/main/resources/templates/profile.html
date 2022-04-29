@@ -38,7 +38,7 @@
 <div class="container col-md-5 mt-4">
     <div class="card">
         <div class="card-body">
-            <form th:action="'/profile/save'" th:object="${user}" method="post">
+            <form th:action="'/shop/profile/save'" th:object="${user}" method="post">
                 <h2 class="text-center text-primary" th:text="'Profile '+${user.role.name}"></h2>
                 <fieldset class="form-group">
                     <label>User Name: </label>
@@ -76,30 +76,30 @@
                     <button type="button" href="/" class="btn btn-dark">Cancel</button>
                 </div>
             </form>
-            <fieldset class="form-group">
-                <a class="password-change" onclick="changePw()">Change your password?</a>
-                <form method="post" th:action="'/profile/checkPass/{id}'" th:object="${changePw}">
-                    <div class="password-box" style="display: none">
-                        <p class="error-alert" style="color: red"></p>
-                        <label>Old password: </label>
-                        <input type="password" name="password" class="form-control old-pass" required
-                               minlength="6"
-                               maxlength="10"/>
-                        <label>New password: </label>
-                        <input type="password" name="newPassword" class="form-control new-pass" required
-                               minlength="6"
-                               maxlength="10"/>
-                        <label>Confirm your new password: </label>
-                        <input type="password" name="confirmPassword" class="form-control confirm-pass" required
-                               minlength="6"
-                               maxlength="10"/>
-                        <div class="col text-center mt-3">
-                            <button type="submit" class="btn btn-info password-confirm-btn">Confirm</button>
-                            <button type="button" href="/" class="btn btn-danger password-cancel-btn">Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </fieldset>
+<!--            <fieldset class="form-group">-->
+<!--                <a class="password-change" onclick="changePw()">Change your password?</a>-->
+<!--                <form method="post" th:action="'/profile/checkPass/{id}'" th:object="${changePw}">-->
+<!--                    <div class="password-box" style="display: none">-->
+<!--                        <p class="error-alert" style="color: red"></p>-->
+<!--                        <label>Old password: </label>-->
+<!--                        <input type="password" name="password" class="form-control old-pass" required-->
+<!--                               minlength="6"-->
+<!--                               maxlength="10"/>-->
+<!--                        <label>New password: </label>-->
+<!--                        <input type="password" name="newPassword" class="form-control new-pass" required-->
+<!--                               minlength="6"-->
+<!--                               maxlength="10"/>-->
+<!--                        <label>Confirm your new password: </label>-->
+<!--                        <input type="password" name="confirmPassword" class="form-control confirm-pass" required-->
+<!--                               minlength="6"-->
+<!--                               maxlength="10"/>-->
+<!--                        <div class="col text-center mt-3">-->
+<!--                            <button type="submit" class="btn btn-info password-confirm-btn">Confirm</button>-->
+<!--                            <button type="button" href="/" class="btn btn-danger password-cancel-btn">Cancel</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </fieldset>-->
         </div>
     </div>
 </div>
@@ -123,48 +123,48 @@
 <script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
 <script>
-    const passwordBox = document.querySelector(".password-box")
-    const updateBtns = document.querySelector(".update-btn")
-    const confirm = document.querySelector(".password-confirm-btn")
-    const cancel = document.querySelector(".password-cancel-btn")
-    const newPass = document.querySelector(".old-pass")
-    const oldPass = document.querySelector(".new-pass")
-    const confirmPass = document.querySelector(".confirm-pass")
-    const err = document.querySelector(".error-alert")
-    const pw = document.querySelector(".password-check")
-
-    function changePw() {
-        passwordBox.style.display = "block"
-        updateBtns.style.display="none"
-        document.querySelector(".password-change").textContent = "Change your password:"
-        confirm.addEventListener("click", checkPass)
-    }
-
-    function checkPass() {
-        // if (oldPass.value == "")
-        //     err.textContent = "Wrong password!"
-        // else
-        fetch('http://localhost:8086/profile/'+document.querySelector(".id"), {
-            method:'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:
-                JSON.stringify(checkPass)
-        }).then((response)=>{
-            if (response.status === 200) {
-                return response.json();
-            }
-        }).then((isPwCorrect)=>{
-            if (isPwCorrect)
-                err.textContent = "Wrong password! Try again!"
-            if (newPass.value !== confirmPass.value)
-                err.textContent = "Invalid!"
-            else {
-                console.log(newPass.value+"===="+confirmPass.value)
-                alert("OK!")}
-        })
-    }
+    // const passwordBox = document.querySelector(".password-box")
+    // const updateBtns = document.querySelector(".update-btn")
+    // const confirm = document.querySelector(".password-confirm-btn")
+    // const cancel = document.querySelector(".password-cancel-btn")
+    // const newPass = document.querySelector(".old-pass")
+    // const oldPass = document.querySelector(".new-pass")
+    // const confirmPass = document.querySelector(".confirm-pass")
+    // const err = document.querySelector(".error-alert")
+    // const pw = document.querySelector(".password-check")
+    //
+    // function changePw() {
+    //     passwordBox.style.display = "block"
+    //     updateBtns.style.display="none"
+    //     document.querySelector(".password-change").textContent = "Change your password:"
+    //     confirm.addEventListener("click", checkPass)
+    // }
+    //
+    // function checkPass() {
+    //     // if (oldPass.value == "")
+    //     //     err.textContent = "Wrong password!"
+    //     // else
+    //     fetch('http://localhost:8086/profile/'+document.querySelector(".id"), {
+    //         method:'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body:
+    //             JSON.stringify(checkPass)
+    //     }).then((response)=>{
+    //         if (response.status === 200) {
+    //             return response.json();
+    //         }
+    //     }).then((isPwCorrect)=>{
+    //         if (isPwCorrect)
+    //             err.textContent = "Wrong password! Try again!"
+    //         if (newPass.value !== confirmPass.value)
+    //             err.textContent = "Invalid!"
+    //         else {
+    //             console.log(newPass.value+"===="+confirmPass.value)
+    //             alert("OK!")}
+    //     })
+    // }
 </script>
 
 </body>

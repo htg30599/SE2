@@ -76,31 +76,32 @@ public class BaseController {
         return "checkout";
     }
 
-    @RequestMapping("/profile/{id}")
+    @RequestMapping("/shop/profile")
     public String viewProfile(
-            @PathVariable(value = "id") Long id, Model model) {
-        User user = userRepository.getById(id);
+            Model model) {
+        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUserName());
         ChangePw changePw = new ChangePw("", "", "");
         model.addAttribute("user", user);
         model.addAttribute("changePw", changePw);
         return "profile";
     }
 
-    @RequestMapping(name = "/profile/checkPass/{id}", method = RequestMethod.POST)
-    public String isPasswordCorrect(@PathVariable(value = "id", required = false) Long id,
-                                    @RequestBody ChangePw changePw,
-                                    @Valid User user,
-                                    Model model) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String enteredPassword = encoder.encode(changePw.getPassword());
-        if (enteredPassword.equals(user.getPassword()) && changePw.getNewPassword().equals(changePw.getConfirmPassword())) {
-            changePw.setPassword(encoder.encode(changePw.getNewPassword()));
-        } else changePw = new ChangePw("", "", "");
-        model.addAttribute("changePw", changePw);
-        return "redirect:#";
-    }
+//    @RequestMapping(name = "/profile/checkPass/{id}", method = RequestMethod.POST)
+//    public String isPasswordCorrect(@PathVariable(value = "id", required = false) Long id,
+//                                    @RequestBody ChangePw changePw,
+//                                    @Valid User user,
+//                                    Model model) {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        String enteredPassword = encoder.encode(changePw.getPassword());
+//        if (enteredPassword.equals(user.getPassword()) && changePw.getNewPassword().equals(changePw.getConfirmPassword())) {
+//            changePw.setPassword(encoder.encode(changePw.getNewPassword()));
+//        } else changePw = new ChangePw("", "", "");
+//        model.addAttribute("changePw", changePw);
+//        return "redirect:#";
+//    }
 
-    @RequestMapping("/profile/save")
+    @RequestMapping("/shop/profile/save")
     public String saveProfile(@RequestParam(value = "id", required = false) Long id,
                               @Valid User user, BindingResult result,
                               Model model) {
@@ -146,7 +147,7 @@ public class BaseController {
         List<EntityProduct> entityProducts;
         Cart cart;
         //create new cart if it's null
-        if (carts.get(0) == null) {
+        if (carts == null||carts.size()==0) {
              cart= new Cart(email, product.getPrice(), 0);
             cartRepository.save(cart);
             entityProducts = new ArrayList<>();
