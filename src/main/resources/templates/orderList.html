@@ -38,7 +38,7 @@
 
 <body>
 <div class="container col-md-5 mt-4">
-    <a th:href="'/adminHomepage'" class="btn mt-3 mb-3 btn-info">
+    <a th:href="'/'" class="btn mt-3 mb-3 btn-info">
         HOME
     </a>
     <div class="text text-primary justify-content-between text-center">
@@ -62,7 +62,6 @@
                     <td th:text="${order.createDate}"></td>
                     <td th:text="${order.placeOfReceipt}"></td>
                     <td th:text="${order.totalPrice}"></td>
-                    <td>
                 </tr>
                 </tbody>
             </table>

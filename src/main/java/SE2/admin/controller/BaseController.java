@@ -142,12 +142,12 @@ public class BaseController {
         CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Product product = productRepository.getById(id);
         String email = userDetails.getUserName();
-        Cart cart = cartRepository.findByUserEmailAndStatusIs(email, 0);
+        List<Cart> carts = cartRepository.findByUserEmailAndStatusIs(email, 0);
         List<EntityProduct> entityProducts;
-
+        Cart cart;
         //create new cart if it's null
-        if (cart == null) {
-            cart = new Cart(email, product.getPrice(), 0);
+        if (carts.get(0) == null) {
+             cart= new Cart(email, product.getPrice(), 0);
             cartRepository.save(cart);
             entityProducts = new ArrayList<>();
             EntityProduct entityProduct = new EntityProduct(product, cart, 1);
@@ -155,11 +155,12 @@ public class BaseController {
             entityProductsRepository.save(entityProduct);
         } else {
             //calculate new total Price
-            cart.setTotalPrice(cart.getTotalPrice() + product.getPrice());
-            entityProducts = entityProductsRepository.findAllByCart(cart);
-            EntityProduct entityProduct = new EntityProduct(product, cart, 1);
+            carts.get(0).setTotalPrice(carts.get(0).getTotalPrice() + product.getPrice());
+            entityProducts = entityProductsRepository.findAllByCart(carts.get(0));
+            EntityProduct entityProduct = new EntityProduct(product, carts.get(0), 1);
             entityProducts.add(entityProduct);
             entityProductsRepository.save(entityProduct);
+            cart = carts.get(0);
         }
         //create ClientForm to save user input
         ClientForm clientForm = new ClientForm(entityProducts);
@@ -180,16 +181,20 @@ public class BaseController {
         User user = userRepository.findByEmail(userDetails.getUserName());
         List<EntityProduct> entityProducts = entityProductsRepository.findAllByIdIn(clientForm.getEntityProducts().stream().map(EntityProduct::getId).collect(Collectors.toList()));
 
-        Cart cart = cartRepository.findByUserEmailAndStatusIs(userDetails.getUserName(), 0);
-        cart.setTotalPrice(0);
+        List<Cart> carts = cartRepository.findByUserEmailAndStatusIs(userDetails.getUserName(), 0);
+        carts.get(0).setTotalPrice(0);
         if (CollectionUtils.isNotEmpty(entityProducts)) {
-            entityProducts.forEach(entityProduct -> clientForm.getEntityProducts().stream().filter(entityProduct1 -> Objects.equals(entityProduct1.getId(), entityProduct.getId())).findFirst().ifPresent(result -> entityProduct.setQuantity(result.getQuantity())));
+            entityProducts.forEach(entityProduct ->
+                    clientForm.getEntityProducts()
+                            .stream().filter(entityProduct1 ->
+                                    Objects.equals(entityProduct1.getId(), entityProduct.getId()))
+                            .findFirst().ifPresent(result -> entityProduct.setQuantity(result.getQuantity())));
             for (EntityProduct entityProduct : entityProducts) {
                 entityProductsRepository.save(entityProduct);
-                cart.setTotalPrice(cart.getTotalPrice() + entityProduct.getQuantity() * entityProduct.getProduct().getPrice());
+                carts.get(0).setTotalPrice(carts.get(0).getTotalPrice() + entityProduct.getQuantity() * entityProduct.getProduct().getPrice());
             }
-            cartRepository.save(cart);
-            List<EntityProduct> list = entityProductsRepository.findAllByCart(cart);
+            cartRepository.save(carts.get(0));
+            List<EntityProduct> list = entityProductsRepository.findAllByCart(carts.get(0));
             for (int i = 0; i < list.size(); i++) {
                 if (entityProducts.indexOf(list.get(i)) < 0) {
                     entityProductsRepository.delete(list.get(i));
@@ -197,9 +202,9 @@ public class BaseController {
             }
         }
         Order order = new Order();
-        order.setCart(cart);
+        order.setCart(carts.get(0));
         order.setPlaceOfReceipt(user.getAddress());
-        order.setTotalPrice(cart.getTotalPrice());
+        order.setTotalPrice(carts.get(0).getTotalPrice());
 
         clientForm.setEntityProducts(entityProducts);
 
@@ -214,6 +219,7 @@ public class BaseController {
     public String saveOrder(
             @ModelAttribute(name = "order") Order order,
             Model model) {
+        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Cart cart = order.getCart();
         cart.setStatus(1);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -230,22 +236,46 @@ public class BaseController {
             productRepository.save(product);
         }
         orderRepository.save(order);
+        List<Cart> carts = cartRepository.findAllByUserEmail(userDetails.getUserName());
+        List<Order> orders = new ArrayList<>();
+
+        for (Cart cartItem : carts) {
+            orders.add(orderRepository.findByCart(cartItem));
+        }
+
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("orders", orders);
         return "orderList";
     }
 
-    @RequestMapping("/shop/showOrder")
-    public String showCart(
-            @ModelAttribute(name = "order") Order order,
-            Model model) {
-        String userEmail = order.getCart().getUserEmail();
+    @RequestMapping(value = "/shop/showOrder")
+    public String showOrder(Model model) {
+        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = userDetails.getUserName();
         model.addAttribute("categories", categoryRepository.findAll());
-        List<Cart> carts = cartRepository.findAllByUserEmail(userEmail);
+        List<Cart> carts = cartRepository.findByUserEmailAndStatusIs(email,1);
         List<Order> orders = new ArrayList<>();
+
         for (Cart cart : carts) {
             orders.add(orderRepository.findByCart(cart));
         }
+
         model.addAttribute("orders", orders);
         return "orderList";
+    }
+
+    @RequestMapping(value = "/shop/showCart")
+    public String showCart(Model model) {
+        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = userDetails.getUserName();
+        List<Cart> carts = cartRepository.findByUserEmailAndStatusIs(email, 0);
+        List<EntityProduct> entityProducts = entityProductsRepository.findAllByCart(carts.get(0));
+        ClientForm clientForm = new ClientForm(entityProducts);
+
+        model.addAttribute("clientForm", clientForm);
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("cart", carts.get(0));
+        return "cart";
     }
 
 }
