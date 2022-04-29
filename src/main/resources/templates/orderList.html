@@ -57,10 +57,10 @@
                 </th>
                 <tbody>
                 <tr th:each="order, i : ${orders}">
-                    <td th:text="${i.index}"><a th:href="'/shop/showCart'"></a></td>
+                    <td th:text="${i.index+1}"><a th:href="'/shop/showCart'"></a></td>
                     <td th:text="${order.createDate}"></td>
                     <td th:text="${order.placeOfReceipt}"></td>
-                    <td th:text="${order.totalPrice}"></td>
+                    <td th:text="'$'+${order.totalPrice}"></td>
                 </tr>
                 </tbody>
             </table>

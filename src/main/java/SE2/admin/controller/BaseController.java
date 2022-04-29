@@ -1,7 +1,6 @@
 
 package SE2.admin.controller;
 
-import SE2.admin.UpdateCartRequestDTO;
 import SE2.admin.model.*;
 import SE2.admin.repository.*;
 
@@ -66,16 +65,6 @@ public class BaseController {
         return "register_success";
     }
 
-//    @GetMapping("/homepage")
-//    public String homepage() {
-//        return "homepage";
-//    }
-
-//    @GetMapping("/checkout")
-//    public String showCheckout(Model model) {
-//        return "checkout";
-//    }
-
     @RequestMapping("/shop/profile")
     public String viewProfile(Model model) {
         CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -83,20 +72,6 @@ public class BaseController {
         model.addAttribute("user", user);
         return "profile";
     }
-
-//    @RequestMapping(name = "/profile/checkPass/{id}", method = RequestMethod.POST)
-//    public String isPasswordCorrect(@PathVariable(value = "id", required = false) Long id,
-//                                    @RequestBody ChangePw changePw,
-//                                    @Valid User user,
-//                                    Model model) {
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        String enteredPassword = encoder.encode(changePw.getPassword());
-//        if (enteredPassword.equals(user.getPassword()) && changePw.getNewPassword().equals(changePw.getConfirmPassword())) {
-//            changePw.setPassword(encoder.encode(changePw.getNewPassword()));
-//        } else changePw = new ChangePw("", "", "");
-//        model.addAttribute("changePw", changePw);
-//        return "redirect:#";
-//    }
 
     @RequestMapping("/shop/profile/save")
     public String saveProfile(@RequestParam(value = "id", required = false) Long id,
@@ -188,12 +163,14 @@ public class BaseController {
 
         List<Cart> carts = cartRepository.findByUserEmailAndStatusIs(userDetails.getUserName(), 0);
         carts.get(0).setTotalPrice(0);
+
         if (CollectionUtils.isNotEmpty(entityProducts)) {
             entityProducts.forEach(entityProduct ->
                     clientForm.getEntityProducts()
                             .stream().filter(entityProduct1 ->
                                     Objects.equals(entityProduct1.getId(), entityProduct.getId()))
                             .findFirst().ifPresent(result -> entityProduct.setQuantity(result.getQuantity())));
+
             for (EntityProduct entityProduct : entityProducts) {
                 entityProductsRepository.save(entityProduct);
                 carts.get(0).setTotalPrice(carts.get(0).getTotalPrice() + entityProduct.getQuantity() * entityProduct.getProduct().getPrice());
@@ -201,7 +178,7 @@ public class BaseController {
             cartRepository.save(carts.get(0));
             List<EntityProduct> list = entityProductsRepository.findAllByCart(carts.get(0));
             for (int i = 0; i < list.size(); i++) {
-                if (entityProducts.indexOf(list.get(i)) < 0) {
+                if (entityProducts.indexOf(list.get(i)) < 0||list.get(i).getQuantity()==0) {
                     entityProductsRepository.delete(list.get(i));
                 }
             }
@@ -265,6 +242,7 @@ public class BaseController {
             orders.add(orderRepository.findByCart(cart));
         }
 
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("orders", orders);
         return "orderList";
     }
