@@ -109,7 +109,8 @@
                         </div>
                         <div class="rounded p-2 bg-light">
                             <div class="media mb-2 border-bottom">
-                                <div class="media-body" th:each="item:${clientForm.entityProducts}">
+                                <div class="media-body" th:each="item:${clientForm.entityProducts}"
+                                     th:if="${item.quantity} &gt; 0">
                                     <img th:src="${item.product.images}" style="height: 175px;width: 135px;">
                                     <div class="small text-muted">
                                         <a href="detail.html" th:text="${item.product.name}"></a>
@@ -127,7 +128,6 @@
                         <div class="title-left">
                             <h3>Your order</h3>
                         </div>
-                        <hr>
                         <div class="d-flex gr-total">
                             <h5>Grand Total: </h5>
                             <div class="ml-auto h5" th:text="' $'+${order.totalPrice}" th:field="${order.totalPrice}"></div>
