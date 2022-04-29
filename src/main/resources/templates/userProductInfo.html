@@ -38,6 +38,12 @@
 
 <body>
 <div class="container col-md-5 mt-4">
+    <div class="container justify-content-between">
+        <div><h1/></div>
+        <a class="btn btn-info"  th:href="/">
+            ALL LIST
+        </a>
+    </div>
     <div class="text text-primary justify-content-between text-center">
         <h2 class="text text-primary justify-content-between text-center">PRODUCT </h2>
     </div>
@@ -72,7 +78,7 @@
             </table>
             <button class="btn-info"><a class="cart" th:href="'/shop/addToCart/'+${product.id}" style="text-decoration: none">Add to Cart</a></button>
             <h1></h1>
-            <button class="btn-danger"><a class="cart" href="/" style="text-decoration: none">Back to Homepage</a></button>
+            <button class="btn-danger"><a class="cart" th:href="/" style="text-decoration: none">Back to Homepage</a></button>
 
         </div>
     </div>

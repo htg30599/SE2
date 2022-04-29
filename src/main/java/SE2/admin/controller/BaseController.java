@@ -66,24 +66,21 @@ public class BaseController {
         return "register_success";
     }
 
-    @GetMapping("/homepage")
-    public String homepage() {
-        return "homepage";
-    }
+//    @GetMapping("/homepage")
+//    public String homepage() {
+//        return "homepage";
+//    }
 
-    @GetMapping("/checkout")
-    public String showCheckout(Model model) {
-        return "checkout";
-    }
+//    @GetMapping("/checkout")
+//    public String showCheckout(Model model) {
+//        return "checkout";
+//    }
 
     @RequestMapping("/shop/profile")
-    public String viewProfile(
-            Model model) {
+    public String viewProfile(Model model) {
         CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByEmail(userDetails.getUserName());
-        ChangePw changePw = new ChangePw("", "", "");
         model.addAttribute("user", user);
-        model.addAttribute("changePw", changePw);
         return "profile";
     }
 
@@ -108,11 +105,16 @@ public class BaseController {
         if (result.hasErrors()) {
             return "profile";
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+       user.setPassword(userRepository.getById(id).getPassword());
         userRepository.save(user);
-        return "profile";
+        List<Product>products= productRepository.findAll();
+        for (Product product : products) {
+            if (product.getQuantity() < 0)
+                products.remove(product);
+        }
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "shop";
     }
 
     @RequestMapping("/category/{id}")
@@ -124,6 +126,8 @@ public class BaseController {
             if (product.getQuantity() < 0)
                 products.remove(product);
         }
+
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("products", products);
         return "shop";
     }
