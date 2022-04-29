@@ -1,10 +1,12 @@
 
 package SE2.admin.controller;
 
+import SE2.admin.UpdateCartRequestDTO;
 import SE2.admin.model.*;
 import SE2.admin.repository.*;
 
 import SE2.admin.service.CustomerUserDetail;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -38,17 +42,12 @@ public class BaseController {
     @Autowired
     EntityProductsRepository entityProductsRepository;
 
-//    @GetMapping("/Home")
-//    public String index() {
-//
-//        return index();
-//    }
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping("/register")
     public String showSignUpForm(Model model) {
-//        List<Roles> rolesList = rolesRepository.findAll();
         model.addAttribute("user", new User());
-//        model.addAttribute("roles",rolesList);
         return "signup_form";
     }
 
@@ -120,6 +119,10 @@ public class BaseController {
             @PathVariable(value = "id") Long id, Model model) {
         Category category = categoryRepository.getById(id);
         List<Product> products = productRepository.findByCategory(category);
+        for (Product product : products) {
+            if (product.getQuantity() < 0)
+                products.remove(product);
+        }
         model.addAttribute("products", products);
         return "shop";
     }
@@ -131,21 +134,6 @@ public class BaseController {
         model.addAttribute("product", product);
         return "userProductInfo";
     }
-
-//    @RequestMapping("/shop/addToCart/{id}")
-//    public String showCart(
-//            @PathVariable(value = "id") Long id, Model model) {
-//        Product product = productRepository.getById(id);
-//        CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        String email = userDetails.getUserName();
-//        Cart cart = cartRepository.findByUserEmailAndStatusIs(email, 0);
-//        List<EntityProduct> entityProducts = entityProductsRepository.findAllByCart(cart);
-//        entityProducts.add(new EntityProduct(product, cart, 1));
-//        model.addAttribute("product",product);
-//        model.addAttribute("entityProducts", entityProducts);
-//        model.addAttribute("cart", cart);
-//        return "cart";
-//    }
 
     @RequestMapping(value = "/shop/addToCart/{id}")
     public String addProduct(
@@ -185,23 +173,79 @@ public class BaseController {
 
     @RequestMapping(value = "/shop/addToCart/save", method = RequestMethod.POST)
     public String saveCart(
-            @ModelAttribute ClientForm clientForm,
+            @ModelAttribute(name = "clientForm") ClientForm clientForm,
             Model model) {
+        // functional method, consumer
         CustomerUserDetail userDetails = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<EntityProduct> entityProducts = clientForm.getEntityProducts();
+        User user = userRepository.findByEmail(userDetails.getUserName());
+        List<EntityProduct> entityProducts = entityProductsRepository.findAllByIdIn(clientForm.getEntityProducts().stream().map(EntityProduct::getId).collect(Collectors.toList()));
 
         Cart cart = cartRepository.findByUserEmailAndStatusIs(userDetails.getUserName(), 0);
         cart.setTotalPrice(0);
-        if (entityProducts != null) {
-            for (int i = 0; i < entityProducts.size(); i++) {
-                entityProductsRepository.save(entityProducts.get(i));
-                cart.setTotalPrice(cart.getTotalPrice() + entityProducts.get(i).getQuantity() * entityProducts.get(i).getProduct().getPrice());
+        if (CollectionUtils.isNotEmpty(entityProducts)) {
+            entityProducts.forEach(entityProduct -> clientForm.getEntityProducts().stream().filter(entityProduct1 -> Objects.equals(entityProduct1.getId(), entityProduct.getId())).findFirst().ifPresent(result -> entityProduct.setQuantity(result.getQuantity())));
+            for (EntityProduct entityProduct : entityProducts) {
+                entityProductsRepository.save(entityProduct);
+                cart.setTotalPrice(cart.getTotalPrice() + entityProduct.getQuantity() * entityProduct.getProduct().getPrice());
             }
             cartRepository.save(cart);
+            List<EntityProduct> list = entityProductsRepository.findAllByCart(cart);
+            for (int i = 0; i < list.size(); i++) {
+                if (entityProducts.indexOf(list.get(i)) < 0) {
+                    entityProductsRepository.delete(list.get(i));
+                }
+            }
         }
+        Order order = new Order();
+        order.setCart(cart);
+        order.setPlaceOfReceipt(user.getAddress());
+        order.setTotalPrice(cart.getTotalPrice());
+
+        clientForm.setEntityProducts(entityProducts);
+
+        model.addAttribute("user", user);
+        model.addAttribute("order", order);
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("clientForm", clientForm);
-        model.addAttribute("cart", cart);
         return "checkout";
+    }
+
+    @RequestMapping(value = "/shop/saveOrder", method = RequestMethod.POST)
+    public String saveOrder(
+            @ModelAttribute(name = "order") Order order,
+            Model model) {
+        Cart cart = order.getCart();
+        cart.setStatus(1);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        order.setCreateDate(formatter.format(new Date()));
+        order.setTotalPrice(cart.getTotalPrice());
+        cartRepository.save(cart);
+        List<EntityProduct> entityProducts = entityProductsRepository.findAllByCart(cart);
+
+        for (EntityProduct entityProduct : entityProducts) {
+            Product productItem = entityProduct.getProduct();
+            Long productId = productItem.getId();
+            Product product = productRepository.getById(productId);
+            product.setQuantity(productRepository.getById(productId).getQuantity() - entityProduct.getQuantity());
+            productRepository.save(product);
+        }
+        orderRepository.save(order);
+        return "orderList";
+    }
+
+    @RequestMapping("/shop/showOrder")
+    public String showCart(
+            @ModelAttribute(name = "order") Order order,
+            Model model) {
+        String userEmail = order.getCart().getUserEmail();
+        model.addAttribute("categories", categoryRepository.findAll());
+        List<Cart> carts = cartRepository.findAllByUserEmail(userEmail);
+        List<Order> orders = new ArrayList<>();
+        for (Cart cart : carts) {
+            orders.add(orderRepository.findByCart(cart));
+        }
+        model.addAttribute("orders", orders);
+        return "orderList";
     }
 
 }

@@ -39,8 +39,9 @@
 
 <body>
 
-<div th:replace="header :: header "></div>
 
+<!-- Start Main Top -->
+<div th:replace="header :: header "></div>
 <!-- Start Top Search -->
 <div class="top-search">
     <div class="container">
@@ -89,7 +90,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="itemProduct" th:each="item : ${clientForm.entityProducts}">
+                            <tr class="itemProduct" th:each="item, status : ${clientForm.entityProducts}">
                                 <td class="thumbnail-img">
                                     <a href="#">
                                         <img class="img-fluid" th:src="${item.product.images}"
@@ -97,18 +98,21 @@
                                              style="height: 124px;width: 96px;"/>
                                     </a>
                                 </td>
-                                <td class="name-pr" th:text="${item.product.name}"/>
+                                <td class="name-pr"  th:text="${item.product.name}"/>
                                 <td class="price-pr">
                                     <p class="price-pr-item" th:text="'$'+${item.product.price}"/>
                                 </td>
-                                <td class="quantity-box"><input type="number" size="4" th:value="${item.quantity}"
+                                <td class="quantity-box"><input type="number" size="4" th:field="*{entityProducts[__${status.index}__].quantity}" th:value="${item.quantity}"
                                                                 min="0" step="1" class="c-input-text qty text"></td>
                                 <td class="total-pr">
                                     <p class="total-pr-item" th:text="'$'+${item.product.price}"/>
                                 </td>
                                 <td class="remove-pr">
-                                    <button type="button" class="remove-btn btn-danger">
+                                    <button type="button" class="remove-btn" style="background-color: white">
                                         <img th:src="@{/images/delete.png}" width="20"></button>
+                                </td>
+                                <td class="price-pr">
+                                    <input th:field="*{entityProducts[__${status.index}__].id}" th:value="${item.id}" hidden>
                                 </td>
                             </tr>
                             </tbody>
@@ -120,7 +124,7 @@
             <div class="row my-5">
                 <div class="col-lg-6 col-sm-6">
                     <div class="update-box">
-                        <input value="Update Cart" type="submit">
+                        <input value="Checkout" type="submit" >
                     </div>
                 </div>
             </div>
@@ -141,7 +145,6 @@
                 </div>
             </div>
             </form>
-            <div class="col-12 d-flex shopping-box"><a href="/shop/" class="ml-auto btn hvr-hover">Checkout</a></div>
         </div>
 
     </div>
@@ -265,15 +268,21 @@
 <script src="js/form-validator.min.js"></script>
 <script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     const grandTotal = document.querySelector(".grand-total")
     let grand = 0
     const itemContainer = document.querySelectorAll(".itemProduct")
+
+
+
     for (const itemContainerElement of itemContainer) {
         const itemPrice = itemContainerElement.querySelector(".price-pr-item")
         const quantity = itemContainerElement.querySelector(".c-input-text")
         const totalPrice = itemContainerElement.querySelector(".total-pr-item")
         const removeBtn = itemContainerElement.querySelector(".remove-btn")
+
+        totalPrice.textContent = "$"+parseInt(itemPrice.textContent.replace("$","")) * parseInt(quantity.value);
         quantity.addEventListener('click', function () {
             totalPrice.textContent = "$"+parseInt(itemPrice.textContent.replace("$","")) * parseInt(quantity.value)
             updateGrandPrice()
@@ -289,6 +298,7 @@
             grand += parseInt(totalPrice.textContent.replace("$",""))
         }
         grandTotal.textContent = grand
+        console.log('updated');
     }
 
     function removeItem(event) {

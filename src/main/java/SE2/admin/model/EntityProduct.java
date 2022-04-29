@@ -18,7 +18,7 @@ public class EntityProduct {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "cart_id")
     private Cart cart;
 

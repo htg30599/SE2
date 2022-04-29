@@ -28,7 +28,7 @@ public class Cart {
     @Column(name="status")
     private Integer status;
 
-//    @OneToMany
+//    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
 //    private List<EntityProduct> entityProducts;
 
     public Cart(String userEmail, Integer totalPrice, Integer status) {

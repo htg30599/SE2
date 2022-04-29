@@ -16,8 +16,8 @@ public class Order {
     private Cart cart;
     @Column(name="place_of_receipt")
     private String placeOfReceipt;
-    @Column(name="note")
-    private String note;
+//    @Column(name="note")
+//    private String note;
 //    @Column(name="payment_method")
 //    private String paymentMethod;
     @Column(name="total_price")
@@ -61,13 +61,13 @@ public class Order {
         this.placeOfReceipt = placeOfReceipt;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
+//    public String getNote() {
+//        return note;
+//    }
+//
+//    public void setNote(String note) {
+//        this.note = note;
+//    }
 
 //    public String getPaymentMethod() {
 //        return paymentMethod;

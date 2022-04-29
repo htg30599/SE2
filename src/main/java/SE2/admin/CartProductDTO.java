@@ -4,11 +4,10 @@ import lombok.Data;
 
 
 @Data
-public class CartUpdateDTO {
+public class CartProductDTO {
 
     private Long productId;
 
     private int quantity;
-
 
 }
