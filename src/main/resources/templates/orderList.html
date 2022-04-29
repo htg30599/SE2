@@ -49,13 +49,15 @@
             <table class="table table-striped table-hover ">
                 <h1></h1>
                 <tr>
+                    <th>Id</th>
                     <th>Create Date</th>
                     <th>Place of Receipt</th>
                     <th>Total Price</th>
                 </tr>
                 </th>
                 <tbody>
-                <tr th:each="order : ${orders}">
+                <tr th:each="order, i : ${orders}">
+                    <td th:text="${i.index}"><a th:href="'/shop/showCart'"></a></td>
                     <td th:text="${order.createDate}"></td>
                     <td th:text="${order.placeOfReceipt}"></td>
                     <td th:text="${order.totalPrice}"></td>
