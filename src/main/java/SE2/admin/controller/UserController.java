@@ -92,14 +92,14 @@ public class UserController {
 
     @RequestMapping("/sort/asc")
     public String sortProduct(Model model) {
-        List<User> users = userRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        List<User> users = userRepository.findAll(Sort.by(Sort.Direction.ASC, "userName"));
         model.addAttribute("users", users);
         return "userList";
     }
 
     @RequestMapping("/sort/desc")
     public String sortProductDesc(Model model) {
-        List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
+        List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "userName"));
         model.addAttribute("users", users);
         return "userList";
     }
