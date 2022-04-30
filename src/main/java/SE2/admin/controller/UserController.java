@@ -76,8 +76,6 @@ public class UserController {
         }
         user.setId(id);
         userRepository.save(user);
-        Order order = new Order();
-        orderRepository.save(order);
         return "redirect:/admin/user/list";
     }
 

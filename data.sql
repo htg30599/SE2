@@ -1,7 +1,11 @@
 -- change the type of image to text 
 ALTER TABLE abc.`product`
     CHANGE COLUMN images
-    images TEXT NULL DEFAULT NULL ;
+    images TEXT
+    NULL DEFAULT NULL ;
+ALTER TABLE `abc`.`user`
+    CHANGE COLUMN `image` `image` TEXT NULL DEFAULT NULL ;
+
 
 -- add data for role
 insert into abc.role() values(1, 'admin'), (2, 'user');

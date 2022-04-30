@@ -1,7 +1,9 @@
 package SE2.admin.controller;
 
 import SE2.admin.model.Category;
+import SE2.admin.model.Product;
 import SE2.admin.repository.CategoryRepository;
+import SE2.admin.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class
 CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     @RequestMapping(value = "/list")
     public String getAllCategory(Model model) {
@@ -28,15 +32,15 @@ CategoryController {
     }
 
     @RequestMapping(value = "/add")
-    public String addEmployee (Model model) {
+    public String addEmployee(Model model) {
         Category category = new Category();
         model.addAttribute("category", category);
         return "categoryAdd";
     }
 
-    @RequestMapping (value = "/update/{id}")
+    @RequestMapping(value = "/update/{id}")
     public String updateEmployee(
-            @PathVariable (value = "id") Long id, Model model)  {
+            @PathVariable(value = "id") Long id, Model model) {
         Category category = categoryRepository.getById(id);
         model.addAttribute(category);
         return "categoryUpdate";
@@ -44,8 +48,7 @@ CategoryController {
 
     @RequestMapping(value = "/save")
     public String saveUpdate(
-            @RequestParam(value = "id", required = false) Long id, @Valid Category category, BindingResult result)
-    {
+            @RequestParam(value = "id", required = false) Long id, @Valid Category category, BindingResult result) {
         if (result.hasErrors()) {
             if (id == null) {
                 return "categoryAdd";
@@ -57,6 +60,7 @@ CategoryController {
         categoryRepository.save(category);
         return "redirect:/admin/category/list";
     }
+
     @RequestMapping("/search")
     public String searchCategory(
             Model model,
@@ -65,11 +69,17 @@ CategoryController {
         model.addAttribute("categories", categories);
         return "categoryList";
     }
+
     @RequestMapping(value = "/delete/{id}")
     public String deleteCategory(
             @PathVariable(value = "id") Long id) {
         Category category = categoryRepository.getById(id);
+        List<Product> productList = productRepository.findByCategory(category);
+        for (Product product : productList) {
+            productRepository.delete(product);
+        }
         categoryRepository.delete(category);
+
         return "redirect:/admin/category/list";
     }
 }

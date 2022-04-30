@@ -78,7 +78,8 @@
                     <p style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errorclass="error"
                        th:errors="*{phoneNumber}"/>
                 </fieldset>
-
+                <input hidden th:field="*{password}">
+                <input hidden th:field="*{role}">
                 <input hidden th:field="*{gender}">
                 <input hidden th:field="*{id}">
                 <div class="col text-center mt-3">
